@@ -1,0 +1,65 @@
+<div class="bg-login">
+  <div class="wrapper">
+    <div
+      class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0"
+    >
+      <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+          <div class="col mx-auto">
+            <div class="mb-4 text-center"></div>
+            <div class="card">
+              <div class="card-body">
+                <div class="border p-4 m-8 rounded">
+                  <div class="text-center">
+                    <h3 class="">Sign in</h3>
+                  </div>
+                  <form
+                    [formGroup]="loginForm"
+                    (ngSubmit)="onSubmit()"
+                    class="row g-3"
+                  >
+                    <div class="col-12">
+                      <ng-container *ngIf="emailControl">
+                        <app-base-input
+                          label="Email Address"
+                          [control]="emailControl"
+                          [isEmail]="true"
+                          [errorMessage]="'Please enter valid email address'"
+                        ></app-base-input>
+                      </ng-container>
+                    </div>
+                    <div class="col-12 mt-2">
+                      <ng-container *ngIf="passwordControl">
+                        <app-base-input
+                          label="Enter Password"
+                          [control]="passwordControl"
+                          inputType="password"
+                          [errorMessage]="'Please enter valid password'"
+                        ></app-base-input>
+                      </ng-container>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-2">
+                      <a routerLink="/forgot-password">Forgot Password ?</a>
+                    </div>
+                    <div class="col-12 mt-3 text-center">
+                      <div class="d-grid">
+                        <app-base-button
+                          [color]="'primary'"
+                          [disabled]="loginForm.invalid || loading"
+                          (onClick)="(loginForm.value)"
+                        >
+                          <i class="bx bxs-lock-open"></i> Sign in
+                        </app-base-button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

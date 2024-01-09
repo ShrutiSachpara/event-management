@@ -1019,7 +1019,8 @@ body.lobibox-open {
 }
 
 .lobibox-notify.rounded {
-	border-radius: 30px
+	border-radius: 30px;
+	color: #054078;
 }
 
 .lobibox-notify:hover {
