@@ -31,9 +31,5 @@ export class LoginComponent {
   }
 
   // Function to handle form submission
-  onSubmit() {
-    if (this.loginForm.valid) {
-      console.log('Form submitted:', this.loginForm.value);
-    }
-  }
+  onSubmit() {}
 }
