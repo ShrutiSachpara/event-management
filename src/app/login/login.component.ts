@@ -22,10 +22,7 @@ export class LoginComponent {
       Validators.required,
       Validators.email,
     ]);
-    this.passwordControl = new FormControl('', [
-      Validators.required,
-      // Validators.pattern('[(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}]'),
-    ]);
+    this.passwordControl = new FormControl('', [Validators.required]);
 
     this.loginForm = this.fb.group({
       email: this.emailControl,
