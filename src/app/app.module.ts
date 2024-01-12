@@ -12,9 +12,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BaseInputComponent } from './base/base-input/base-input.component';
 import { BaseButtonComponent } from './base/base-button/base-button.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    BaseInputComponent,
+    BaseButtonComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,6 +30,7 @@ import { BaseButtonComponent } from './base/base-button/base-button.component';
     MatButtonModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
