@@ -1776,7 +1776,7 @@ a {
 }
 
 .bg-login {
-	background-image: url(../images/login-images/bg-login-img.jpg);
+	background-image: url(../image/bg-login-img.jpg);
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -1784,7 +1784,7 @@ a {
 }
 
 .bg-forgot {
-	background-image: url(../images/login-images/bg-forgot-password.jpg);
+	background-image: url(../image/bg-forgot-password.jpg);
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -1792,7 +1792,7 @@ a {
 }
 
 .bg-lock-screen {
-	background-image: url(../images/login-images/bg-lock-screen.jpg);
+	background-image: url(../image/bg-lock-screen.jpg);
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;

@@ -1,0 +1,15 @@
+<mat-form-field appearance="outline" class="col-12" [class.myStyle]="isEmail">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    [type]="inputType"
+    [formControl]="control"
+    style="padding: 10px"
+  />
+  <mat-error
+    *ngIf="control?.hasError('required') && control?.touched"
+    style="color: red"
+  >
+    {{ errorMessage || label + " is required" }}
+  </mat-error>
+</mat-form-field>
