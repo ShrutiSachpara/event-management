@@ -13,12 +13,10 @@ export class AuthService {
 
   constructor(private store: Store<AuthState>) {}
 
-  setLoggedIn(value: boolean, ) {
+  setLoggedIn(value: boolean) {
     this.isLoggedInSubject.next(value);
-    // this.userRole = role;
 
     this.store.dispatch(AuthActions.setLoggedIn({ isLoggedIn: value }));
-    // this.store.dispatch(AuthActions.setUserRole({ userRole: role }));
   }
 
   get isLoggedIn$(): Observable<boolean> {
