@@ -10,6 +10,6 @@
     *ngIf="control?.hasError('required') && control?.touched"
     style="color: red"
   >
-    {{ errorMessage || "Field is required" }}
+    {{ errorMessage || label + " is required" }}
   </mat-error>
 </mat-form-field>
