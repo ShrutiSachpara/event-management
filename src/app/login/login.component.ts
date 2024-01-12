@@ -5,6 +5,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { LoginService } from '../services/api/login.service';
+import { Login } from '../data-type';
+import { AuthService } from '../auth/auth.service';
+import { AuthState } from '../auth/auth.reducer';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../auth/auth.action';
+import { ToasterService } from '../services/toaster.service';
 
 @Component({
   selector: 'app-login',
@@ -16,16 +23,18 @@ export class LoginComponent {
   public loading: boolean = false;
   emailControl: FormControl<string | null>;
   passwordControl: FormControl<string | null>;
-  // Create a FormGroup for the form controls
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private loginService: LoginService,
+    private authService: AuthService,
+    private store: Store<AuthState>,
+    private toasterservice: ToasterService
+  ) {
     this.emailControl = new FormControl('', [
       Validators.required,
       Validators.email,
     ]);
-    this.passwordControl = new FormControl('', [
-      Validators.required,
-      // Validators.pattern('[(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}]'),
-    ]);
+    this.passwordControl = new FormControl('', [Validators.required]);
 
     this.loginForm = this.fb.group({
       email: this.emailControl,
@@ -33,10 +42,22 @@ export class LoginComponent {
     });
   }
 
-  // Function to handle form submission
-  onSubmit() {
+  showMessage(message: string, action: string) {
+    this.toasterservice.showMessage(message, action);
+  }
+
+  onSubmit(data: Login) {
     if (this.loginForm.valid) {
-      console.log('Form submitted:', this.loginForm.value);
+      this.loginService.login(data).subscribe((response: any) => {
+        if (response.statusCode === 200) {
+          this.showMessage(response.message, 'dismiss');
+          const token = response.data;
+          this.store.dispatch(AuthActions.setToken({ token }));
+          this.authService.setLoggedIn(true);
+        } else {
+          this.showMessage(response.message, 'dismiss');
+        }
+      });
     }
   }
 }

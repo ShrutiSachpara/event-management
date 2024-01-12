@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -12,9 +11,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BaseInputComponent } from './base/base-input/base-input.component';
 import { BaseButtonComponent } from './base/base-button/base-button.component';
+import { HttpClientModule } from '@angular/common/http';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from '../app/auth/auth.reducer';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    BaseInputComponent,
+    BaseButtonComponent,
+    LoaderComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,6 +37,15 @@ import { BaseButtonComponent } from './base/base-button/base-button.component';
     MatButtonModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
+    NgxUiLoaderModule.forRoot({}),
+    StoreModule.forRoot({ authReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
