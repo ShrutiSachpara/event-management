@@ -19,6 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoaderComponent } from './loader/loader.component';
+import { PasswordComponent } from './password/password.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { LoaderComponent } from './loader/loader.component';
     BaseInputComponent,
     BaseButtonComponent,
     LoaderComponent,
+    PasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { LoaderComponent } from './loader/loader.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    FormsModule,
     NgxUiLoaderModule.forRoot({}),
     StoreModule.forRoot({ authReducer }),
     StoreDevtoolsModule.instrument({
