@@ -19,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoaderComponent } from './loader/loader.component';
-import { PasswordComponent } from './password/password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -29,7 +29,7 @@ import { FormsModule } from '@angular/forms';
     BaseInputComponent,
     BaseButtonComponent,
     LoaderComponent,
-    PasswordComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

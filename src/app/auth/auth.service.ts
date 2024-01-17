@@ -4,8 +4,6 @@ import { Store } from '@ngrx/store';
 import { AuthState } from './auth.reducer';
 import * as AuthActions from './auth.action';
 import { HttpClient } from '@angular/common/http';
-import { baseUrl } from '../services/api/apiRoute';
-import { url } from '../services/api/apiUrl';
 
 @Injectable({
   providedIn: 'root',
@@ -27,31 +25,5 @@ export class AuthService {
 
   getRole(): string | null {
     return this.userRole;
-  }
-
-  sendPasswordResetEmail(email: string): Observable<any> {
-    return this.http.post<any>(baseUrl.basicUrl + url.verifyEmail, { email });
-  }
-
-  verifyOtpAndResetPassword(
-    email: string,
-    otp: number,
-    newPassword: string,
-    confirmPassword: string
-  ): Observable<any> {
-    const verifyUrl = baseUrl.basicUrl + url.updatePassword;
-    const requestBody = {
-      email,
-      otp,
-      newPassword,
-      confirmPassword,
-    };
-
-    return this.http.put(verifyUrl, requestBody);
-  }
-
-  resetPassword(email: string, newPassword: string): Observable<any> {
-    const resetPasswordUrl = baseUrl.basicUrl + url.updatePassword;
-    return this.http.put(resetPasswordUrl, { email, newPassword });
   }
 }
