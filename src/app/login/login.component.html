@@ -24,7 +24,7 @@
                           label="Email Address"
                           [control]="emailControl"
                           [isEmail]="true"
-                          [errorMessage]="'Please enter valid email address'"
+                          [errorMessage]="emailIncorrect"
                         ></app-base-input>
                       </ng-container>
                     </div>
@@ -34,7 +34,7 @@
                           label="Enter Password"
                           [control]="passwordControl"
                           inputType="password"
-                          [errorMessage]="'Please enter valid password'"
+                          [errorMessage]="invalidPassword"
                         ></app-base-input>
                       </ng-container>
                     </div>

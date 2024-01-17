@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,6 +8,8 @@ import {
 import { ToasterService } from '../services/toaster.service';
 import { ForgotPasswordService } from '../services/api/forgot-password.service';
 import { Router } from '@angular/router';
+import { HttpStatus } from 'src/helper/httpStatus';
+import { Messages } from 'src/helper/message';
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,6 +21,8 @@ export class ForgotPasswordComponent {
   loading: boolean = false;
   forgotPasswordForm: FormGroup;
   showOtpInput = false;
+  emailIncorrect = Messages.EMAIL_INCORRECT;
+  validOtp = Messages.VALID_OTP;
 
   newPasswordControl = new FormControl('', [Validators.required]);
   confirmPasswordControl = new FormControl('', [Validators.required]);
@@ -50,7 +54,7 @@ export class ForgotPasswordComponent {
         .sendPasswordResetEmail(email)
         .subscribe((response: any) => {
           this.showMessage(response.message, 'success');
-          if (response.statusCode === 200) {
+          if (response.statusCode === HttpStatus.OK) {
             this.showOtpInput = true;
           } else {
             this.showMessage(response.message, 'dismiss');
@@ -79,7 +83,7 @@ export class ForgotPasswordComponent {
         .verifyOtpAndResetPassword(email, otp, newPassword, confirmPassword)
         .subscribe((response: any) => {
           this.showMessage(response.message, 'success');
-          if (response.statusCode === 200) {
+          if (response.statusCode === HttpStatus.OK) {
             this.showMessage(response.message, 'success');
             this.router.navigate(['/login']);
           } else {

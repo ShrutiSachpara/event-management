@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
@@ -14,7 +14,7 @@ export class LoaderComponent implements OnInit {
 
     setTimeout(() => {
       this.stopLoader('loader-1');
-    }, 2000);
+    });
   }
 
   startLoader() {
