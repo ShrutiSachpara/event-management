@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
-import { AuthState } from 'src/app/auth/auth.reducer';
 import { baseUrl } from './apiRoute';
 import { url } from './apiUrl';
 @Injectable({
   providedIn: 'root',
 })
 export class ForgotPasswordService {
-  constructor(private store: Store<AuthState>, private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
+
   sendPasswordResetEmail(email: string): Observable<any> {
     return this.http.post<any>(baseUrl.basicUrl + url.verifyEmail, { email });
   }

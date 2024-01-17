@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ToasterService } from '../services/toaster.service';
 import { ForgotPasswordService } from '../services/api/forgot-password.service';
 import { Router } from '@angular/router';
@@ -12,17 +17,30 @@ export class ForgotPasswordComponent {
   emailControl = new FormControl('', [Validators.required, Validators.email]);
   otpControl = new FormControl('', [Validators.required]);
   loading: boolean = false;
-  resetForm!: FormGroup;
+  forgotPasswordForm: FormGroup;
   showOtpInput = false;
 
   newPasswordControl = new FormControl('', [Validators.required]);
   confirmPasswordControl = new FormControl('', [Validators.required]);
 
   constructor(
+    private fb: FormBuilder,
     private router: Router,
     private toaster: ToasterService,
     private forgotPasswordService: ForgotPasswordService
-  ) {}
+  ) {
+    this.emailControl = new FormControl('', [
+      Validators.required,
+      Validators.email,
+    ]);
+
+    this.forgotPasswordForm = this.fb.group({
+      otp: this.otpControl,
+      email: this.emailControl,
+      newPassword: this.newPasswordControl,
+      confirmPassword: this.confirmPasswordControl,
+    });
+  }
 
   sendPasswordReset() {
     if (!this.showOtpInput && this.emailControl.valid) {
