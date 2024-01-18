@@ -14,6 +14,7 @@ import * as AuthActions from '../auth/auth.action';
 import { ToasterService } from '../services/toaster.service';
 import { HttpStatus } from 'src/helper/httpStatus';
 import { Messages } from 'src/helper/message';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,8 @@ export class LoginComponent {
     private loginService: LoginService,
     private authService: AuthService,
     private store: Store<AuthState>,
-    private toasterservice: ToasterService
+    private toasterservice: ToasterService,
+    public router: Router
   ) {
     this.emailControl = new FormControl('', [
       Validators.required,
@@ -59,6 +61,7 @@ export class LoginComponent {
           const token = response.data;
           this.store.dispatch(AuthActions.setToken({ token }));
           this.authService.setLoggedIn(true);
+          this.router.navigate(['/changePassword']);
         } else {
           this.showMessage(response.message, 'dismiss');
         }
