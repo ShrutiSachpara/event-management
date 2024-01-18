@@ -15,7 +15,7 @@
                   </div>
                   <form
                     [formGroup]="loginForm"
-                    (ngSubmit)="onSubmit()"
+                    (ngSubmit)="onSubmit(loginForm.value)"
                     class="row g-3"
                   >
                     <div class="col-12">
@@ -24,7 +24,7 @@
                           label="Email Address"
                           [control]="emailControl"
                           [isEmail]="true"
-                          [errorMessage]="'Please enter valid email address'"
+                          [errorMessage]="emailIncorrect"
                         ></app-base-input>
                       </ng-container>
                     </div>
@@ -34,20 +34,20 @@
                           label="Enter Password"
                           [control]="passwordControl"
                           inputType="password"
-                          [errorMessage]="'Please enter valid password'"
+                          [errorMessage]="invalidPassword"
                         ></app-base-input>
                       </ng-container>
                     </div>
 
                     <div class="col-md-12 text-center mt-2">
-                      <a routerLink="/forgot-password">Forgot Password ?</a>
+                      <a routerLink="/verifyEmail">Forgot Password ?</a>
                     </div>
                     <div class="col-12 mt-3 text-center">
                       <div class="d-grid">
                         <app-base-button
                           [color]="'primary'"
                           [disabled]="loginForm.invalid || loading"
-                          (onClick)="(loginForm.value)"
+                          (onClick)="onSubmit(loginForm.value)"
                         >
                           <i class="bx bxs-lock-open"></i> Sign in
                         </app-base-button>
