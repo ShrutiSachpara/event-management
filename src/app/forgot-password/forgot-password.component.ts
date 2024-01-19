@@ -9,23 +9,19 @@ import { ToasterService } from '../services/toaster.service';
 import { ForgotPasswordService } from '../services/api/forgot-password.service';
 import { Router } from '@angular/router';
 import { HttpStatus } from 'src/helper/httpStatus';
-import { Messages } from 'src/helper/message';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
 })
 export class ForgotPasswordComponent {
-  emailControl = new FormControl('', [Validators.required, Validators.email]);
-  otpControl = new FormControl('', [Validators.required]);
+  emailControl: FormControl<string | null>;
+  otpControl: FormControl<string | null>;
   loading: boolean = false;
   forgotPasswordForm: FormGroup;
   showOtpInput = false;
-  emailIncorrect = Messages.EMAIL_INCORRECT;
-  validOtp = Messages.VALID_OTP;
-
-  newPasswordControl = new FormControl('', [Validators.required]);
-  confirmPasswordControl = new FormControl('', [Validators.required]);
+  newPasswordControl: FormControl<string | null>;
+  confirmPasswordControl: FormControl<string | null>;
 
   constructor(
     private fb: FormBuilder,
@@ -35,7 +31,26 @@ export class ForgotPasswordComponent {
   ) {
     this.emailControl = new FormControl('', [
       Validators.required,
-      Validators.email,
+      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+    ]);
+
+    this.otpControl = new FormControl('', [
+      Validators.required,
+      Validators.pattern('[0-9]{6}'),
+    ]);
+
+    this.newPasswordControl = new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
+      ),
+    ]);
+
+    this.confirmPasswordControl = new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
+      ),
     ]);
 
     this.forgotPasswordForm = this.fb.group({
@@ -63,7 +78,7 @@ export class ForgotPasswordComponent {
         .add(() => {
           this.loading = false;
           if (this.showOtpInput) {
-            this.router.navigate(['/forgot-password'], {
+            this.router.navigate(['updatePassword'], {
               queryParams: { email },
             });
           }
@@ -83,9 +98,9 @@ export class ForgotPasswordComponent {
         .verifyOtpAndResetPassword(email, otp, newPassword, confirmPassword)
         .subscribe((response: any) => {
           this.showMessage(response.message, 'success');
-          if (response.statusCode === HttpStatus.OK) {
+          if (response.statusCode === HttpStatus.ACCEPTED) {
             this.showMessage(response.message, 'success');
-            this.router.navigate(['/login']);
+            this.router.navigate(['login']);
           } else {
             this.showMessage(response.message, 'dismiss');
           }
