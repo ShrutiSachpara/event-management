@@ -14,6 +14,8 @@ import * as AuthActions from '../auth/auth.action';
 import { ToasterService } from '../services/toaster.service';
 import { HttpStatus } from 'src/helper/httpStatus';
 import { Router } from '@angular/router';
+import { Response } from '../data-type';
+import { ENUM } from 'src/helper/enum';
 
 @Component({
   selector: 'app-login',
@@ -50,6 +52,9 @@ export class LoginComponent {
     });
   }
 
+  signIn = ENUM.SIGN_IN;
+  forgotPassword = ENUM.FORGOT_PASSWORD;
+
   showMessage(message: string, action: string) {
     this.toasterservice.showMessage(message, action);
   }
@@ -61,7 +66,7 @@ export class LoginComponent {
 
       this.loginService
         .login(data)
-        .subscribe((response: any) => {
+        .subscribe((response: Response) => {
           if (response.statusCode === HttpStatus.OK) {
             this.showMessage(response.message, 'dismiss');
             const token = response.data;

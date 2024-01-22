@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="col-md-12 text-center mt-2">
-                      <a routerLink="/verifyEmail">Forgot Password ?</a>
+                      <a routerLink="/verifyEmail">{{ forgotPassword }} ?</a>
                     </div>
                     <div class="col-12 mt-3 text-center">
                       <div class="d-grid">
@@ -67,7 +67,7 @@
                           [disabled]="loginForm.invalid || loading"
                           (onClick)="onSubmit(loginForm.value)"
                         >
-                          <i class="bx bxs-lock-open"></i> Sign in
+                          <i class="bx bxs-lock-open"></i> {{ signIn }}
                         </app-base-button>
                       </div>
                     </div>

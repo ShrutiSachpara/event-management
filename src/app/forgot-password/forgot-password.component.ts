@@ -9,7 +9,8 @@ import { ToasterService } from '../services/toaster.service';
 import { ForgotPasswordService } from '../services/api/forgot-password.service';
 import { Router } from '@angular/router';
 import { HttpStatus } from 'src/helper/httpStatus';
-
+import { Response } from '../data-type';
+import { ENUM } from 'src/helper/enum';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -61,13 +62,15 @@ export class ForgotPasswordComponent {
     });
   }
 
+  login = ENUM.LOGIN;
+
   sendPasswordReset() {
     if (!this.showOtpInput && this.emailControl.valid) {
       this.loading = true;
       const email = this.emailControl.value!;
       this.forgotPasswordService
         .sendPasswordResetEmail(email)
-        .subscribe((response: any) => {
+        .subscribe((response: Response) => {
           this.showMessage(response.message, 'success');
           if (response.statusCode === HttpStatus.OK) {
             this.showOtpInput = true;
@@ -96,7 +99,7 @@ export class ForgotPasswordComponent {
 
       this.forgotPasswordService
         .verifyOtpAndResetPassword(email, otp, newPassword, confirmPassword)
-        .subscribe((response: any) => {
+        .subscribe((response: Response) => {
           this.showMessage(response.message, 'success');
           if (response.statusCode === HttpStatus.ACCEPTED) {
             this.showMessage(response.message, 'success');
