@@ -25,17 +25,15 @@
                           [control]="emailControl"
                           [isEmail]="true"
                         ></app-base-input>
-
-                        <div
-                          *ngIf="
-                            emailControl.hasError('pattern') &&
-                            emailControl.touched
-                          "
-                          class="text-danger"
-                        >
-                          Please enter a valid email address.
-                        </div>
                       </ng-container>
+                      <mat-error
+                        *ngIf="
+                          emailControl.hasError('email') && emailControl.touched
+                        "
+                        class="text-danger"
+                      >
+                        {{ emailMessage }}
+                      </mat-error>
                     </div>
                     <div class="col-12 mt-2">
                       <ng-container *ngIf="passwordControl">
@@ -52,7 +50,7 @@
                           "
                           class="text-danger"
                         >
-                          Please enter a valid Password.
+                          {{ passMessage }}
                         </div>
                       </ng-container>
                     </div>

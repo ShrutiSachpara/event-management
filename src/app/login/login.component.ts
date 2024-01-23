@@ -16,6 +16,7 @@ import { HttpStatus } from 'src/helper/httpStatus';
 import { Router } from '@angular/router';
 import { Response } from '../data-type';
 import { ENUM } from 'src/helper/enum';
+import { Messages } from 'src/helper/message';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,7 @@ export class LoginComponent {
   ) {
     this.emailControl = new FormControl('', [
       Validators.required,
-      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+      Validators.email,
     ]);
     this.passwordControl = new FormControl('', [
       Validators.required,
@@ -52,6 +53,8 @@ export class LoginComponent {
     });
   }
 
+  emailMessage = Messages.EMAIL_INCORRECT;
+  passMessage = Messages.INCORRECT_PASSWORD;
   signIn = ENUM.SIGN_IN;
   forgotPassword = ENUM.FORGOT_PASSWORD;
 

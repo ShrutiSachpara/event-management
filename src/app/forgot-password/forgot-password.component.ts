@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { HttpStatus } from 'src/helper/httpStatus';
 import { Response } from '../data-type';
 import { ENUM } from 'src/helper/enum';
+import { Messages } from 'src/helper/message';
+
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -32,7 +34,7 @@ export class ForgotPasswordComponent {
   ) {
     this.emailControl = new FormControl('', [
       Validators.required,
-      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+      Validators.email,
     ]);
 
     this.otpControl = new FormControl('', [
@@ -61,9 +63,11 @@ export class ForgotPasswordComponent {
       confirmPassword: this.confirmPasswordControl,
     });
   }
-
   login = ENUM.LOGIN;
-
+  emailMessage = Messages.EMAIL_INCORRECT;
+  passMessage = Messages.INCORRECT_PASSWORD;
+  validOtp = Messages.VALID_OTP;
+  matchPass = Messages.MATCH_PASS;
   sendPasswordReset() {
     if (!this.showOtpInput && this.emailControl.valid) {
       this.loading = true;
@@ -81,9 +85,7 @@ export class ForgotPasswordComponent {
         .add(() => {
           this.loading = false;
           if (this.showOtpInput) {
-            this.router.navigate(['updatePassword'], {
-              queryParams: { email },
-            });
+            this.router.navigate(['updatePassword']);
           }
         });
     }
@@ -97,12 +99,20 @@ export class ForgotPasswordComponent {
       const newPassword = this.newPasswordControl.value!;
       const confirmPassword = this.confirmPasswordControl.value!;
 
+      if (newPassword !== confirmPassword) {
+        this.showMessage(
+          "Confirm Password doesn't match new password.",
+          'dismiss'
+        );
+        this.loading = false;
+        return;
+      }
+
       this.forgotPasswordService
         .verifyOtpAndResetPassword(email, otp, newPassword, confirmPassword)
         .subscribe((response: Response) => {
-          this.showMessage(response.message, 'success');
           if (response.statusCode === HttpStatus.ACCEPTED) {
-            this.showMessage(response.message, 'success');
+            this.showMessage(response.message, 'dismiss');
             this.router.navigate(['login']);
           } else {
             this.showMessage(response.message, 'dismiss');
