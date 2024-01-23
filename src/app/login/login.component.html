@@ -24,9 +24,16 @@
                           label="Email Address"
                           [control]="emailControl"
                           [isEmail]="true"
-                          [errorMessage]="emailIncorrect"
                         ></app-base-input>
                       </ng-container>
+                      <mat-error
+                        *ngIf="
+                          emailControl.hasError('email') && emailControl.touched
+                        "
+                        class="text-danger"
+                      >
+                        {{ emailMessage }}
+                      </mat-error>
                     </div>
                     <div class="col-12 mt-2">
                       <ng-container *ngIf="passwordControl">
@@ -34,13 +41,22 @@
                           label="Enter Password"
                           [control]="passwordControl"
                           inputType="password"
-                          [errorMessage]="invalidPassword"
                         ></app-base-input>
+
+                        <div
+                          *ngIf="
+                            passwordControl.hasError('pattern') &&
+                            passwordControl.touched
+                          "
+                          class="text-danger"
+                        >
+                          {{ passMessage }}
+                        </div>
                       </ng-container>
                     </div>
 
                     <div class="col-md-12 text-center mt-2">
-                      <a routerLink="/verifyEmail">Forgot Password ?</a>
+                      <a routerLink="/verifyEmail">{{ forgotPassword }} ?</a>
                     </div>
                     <div class="col-12 mt-3 text-center">
                       <div class="d-grid">
@@ -49,7 +65,7 @@
                           [disabled]="loginForm.invalid || loading"
                           (onClick)="onSubmit(loginForm.value)"
                         >
-                          <i class="bx bxs-lock-open"></i> Sign in
+                          <i class="bx bxs-lock-open"></i> {{ signIn }}
                         </app-base-button>
                       </div>
                     </div>

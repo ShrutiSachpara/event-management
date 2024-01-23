@@ -9,6 +9,8 @@ import { ToasterService } from '../services/toaster.service';
 import { ForgotPasswordService } from '../services/api/forgot-password.service';
 import { Router } from '@angular/router';
 import { HttpStatus } from 'src/helper/httpStatus';
+import { Response } from '../data-type';
+import { ENUM } from 'src/helper/enum';
 import { Messages } from 'src/helper/message';
 
 @Component({
@@ -16,16 +18,13 @@ import { Messages } from 'src/helper/message';
   templateUrl: './forgot-password.component.html',
 })
 export class ForgotPasswordComponent {
-  emailControl = new FormControl('', [Validators.required, Validators.email]);
-  otpControl = new FormControl('', [Validators.required]);
+  emailControl: FormControl<string | null>;
+  otpControl: FormControl<string | null>;
   loading: boolean = false;
   forgotPasswordForm: FormGroup;
   showOtpInput = false;
-  emailIncorrect = Messages.EMAIL_INCORRECT;
-  validOtp = Messages.VALID_OTP;
-
-  newPasswordControl = new FormControl('', [Validators.required]);
-  confirmPasswordControl = new FormControl('', [Validators.required]);
+  newPasswordControl: FormControl<string | null>;
+  confirmPasswordControl: FormControl<string | null>;
 
   constructor(
     private fb: FormBuilder,
@@ -38,6 +37,25 @@ export class ForgotPasswordComponent {
       Validators.email,
     ]);
 
+    this.otpControl = new FormControl('', [
+      Validators.required,
+      Validators.pattern('[0-9]{6}'),
+    ]);
+
+    this.newPasswordControl = new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
+      ),
+    ]);
+
+    this.confirmPasswordControl = new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
+      ),
+    ]);
+
     this.forgotPasswordForm = this.fb.group({
       otp: this.otpControl,
       email: this.emailControl,
@@ -45,14 +63,18 @@ export class ForgotPasswordComponent {
       confirmPassword: this.confirmPasswordControl,
     });
   }
-
+  login = ENUM.LOGIN;
+  emailMessage = Messages.EMAIL_INCORRECT;
+  passMessage = Messages.INCORRECT_PASSWORD;
+  validOtp = Messages.VALID_OTP;
+  matchPass = Messages.MATCH_PASS;
   sendPasswordReset() {
     if (!this.showOtpInput && this.emailControl.valid) {
       this.loading = true;
       const email = this.emailControl.value!;
       this.forgotPasswordService
         .sendPasswordResetEmail(email)
-        .subscribe((response: any) => {
+        .subscribe((response: Response) => {
           this.showMessage(response.message, 'success');
           if (response.statusCode === HttpStatus.OK) {
             this.showOtpInput = true;
@@ -63,9 +85,7 @@ export class ForgotPasswordComponent {
         .add(() => {
           this.loading = false;
           if (this.showOtpInput) {
-            this.router.navigate(['/forgot-password'], {
-              queryParams: { email },
-            });
+            this.router.navigate(['updatePassword']);
           }
         });
     }
@@ -79,13 +99,21 @@ export class ForgotPasswordComponent {
       const newPassword = this.newPasswordControl.value!;
       const confirmPassword = this.confirmPasswordControl.value!;
 
+      if (newPassword !== confirmPassword) {
+        this.showMessage(
+          "Confirm Password doesn't match new password.",
+          'dismiss'
+        );
+        this.loading = false;
+        return;
+      }
+
       this.forgotPasswordService
         .verifyOtpAndResetPassword(email, otp, newPassword, confirmPassword)
-        .subscribe((response: any) => {
-          this.showMessage(response.message, 'success');
-          if (response.statusCode === HttpStatus.OK) {
-            this.showMessage(response.message, 'success');
-            this.router.navigate(['/login']);
+        .subscribe((response: Response) => {
+          if (response.statusCode === HttpStatus.ACCEPTED) {
+            this.showMessage(response.message, 'dismiss');
+            this.router.navigate(['login']);
           } else {
             this.showMessage(response.message, 'dismiss');
           }
