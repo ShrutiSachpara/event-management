@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'verifyEmail', component: ForgotPasswordComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'changePassword', component: ChangePasswordComponent },
 ];
 
