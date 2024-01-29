@@ -6,4 +6,5 @@ export const url = {
   updateService: `/api/serviceMange/updateService/`,
   viewService: '/api/serviceMange/listOfService',
   deleteService: `/api/serviceMange/deleteService/`,
+  changePassword: `/api/changePassword `,
 };

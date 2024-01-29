@@ -25,6 +25,7 @@ import { ServiceManageComponent } from './service-manage/service-manage.componen
 import { BaseTableComponent } from './base/base-table/base-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
@@ -41,6 +42,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ForgotPasswordComponent,
     ServiceManageComponent,
     BaseTableComponent,
+    ChangePasswordComponent,
     LayoutComponent,
     HeaderComponent,
     FooterComponent,

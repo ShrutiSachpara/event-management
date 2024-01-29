@@ -10,9 +10,14 @@ export interface Response {
   data: string;
 }
 
+export interface ChangePassword {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
 export interface ServiceManage {
   target: HTMLInputElement;
-  
   service_name: string;
   price: number;
   service_description: string;
