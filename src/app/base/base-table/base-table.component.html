@@ -11,25 +11,16 @@
   </div>
 </div>
 
-<table mat-table [dataSource]="dataSource" class="table align-middle mb-0">
-  <ng-container
-    *ngFor="let column of columns; let i = index"
-    [matColumnDef]="column"
-  >
-    <th mat-header-cell *matHeaderCellDef ngbSortable>
+<table
+  mat-table
+  [dataSource]="dataSource"
+  matSort
+  class="table align-middle mb-0"
+  (matSortChange)="sortData($event)"
+>
+  <ng-container *ngFor="let column of columns" [matColumnDef]="column">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ column | titlecase }}
-      <span
-        class="sortable-icon"
-        (click)="onSort({ column, direction: sortedColumn === column ? (isAscending ? 'desc' : 'asc') : 'asc' })"
-      >
-        <mat-icon aria-hidden="false" aria-label="Sort" class="arrow-icon">
-          {{
-            sortedColumn === column && isAscending
-              ? "arrow_upward"
-              : "arrow_downward"
-          }}
-        </mat-icon>
-      </span>
     </th>
     <td mat-cell *matCellDef="let item">{{ getColumnValue(item, column) }}</td>
   </ng-container>

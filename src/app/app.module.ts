@@ -32,6 +32,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BaseCardComponent } from './base/base-card/base-card.component';
 import { NgChartsModule } from 'ng2-charts';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { NgChartsModule } from 'ng2-charts';
     MatInputModule,
     MatPaginatorModule,
     NgChartsModule,
+    MatSortModule,
     NgxUiLoaderModule.forRoot({}),
     StoreModule.forRoot({ auth: authReducer }),
     StoreDevtoolsModule.instrument({

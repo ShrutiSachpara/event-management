@@ -17,7 +17,7 @@ import {
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
   countOfStatus: any;
@@ -100,29 +100,9 @@ export class DashboardComponent {
     });
   }
 
-  // renderChart(): void {
-  //   const ctx = this.chartCanvas.nativeElement.getContext('2d');
-  //   new Chart(ctx, {
-  //     type: 'doughnut', // or 'pie'
-  //     data: {
-  //       labels: this.graphData.map((item) => item.Year),
-  //       datasets: [
-  //         {
-  //           label: 'Graph of User',
-  //           data: this.graphData.map((item) => item.countOfTotalUser),
-  //           backgroundColor: ['rgba(75, 192, 192, 0.2)'],
-  //           borderColor: ['rgba(75, 192, 192, 1)'],
-  //           borderWidth: 1,
-  //         },
-  //       ],
-  //     },
-  //   });
-  // }
-
   onPageChanged(page: number): void {
     this.currentPage = page;
-    // this.countOfBookingStatus();
-    // this.listOfLatestBooking();
+    this.listOfLatestBooking();
   }
 
   countOfBookingStatus() {
