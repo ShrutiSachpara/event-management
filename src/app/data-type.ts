@@ -9,3 +9,9 @@ export interface Response {
   message: string;
   data: string;
 }
+
+export interface ChangePassword {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}

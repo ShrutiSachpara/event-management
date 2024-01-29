@@ -21,6 +21,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoaderComponent } from './loader/loader.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { FormsModule } from '@angular/forms';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
@@ -35,6 +36,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BaseButtonComponent,
     LoaderComponent,
     ForgotPasswordComponent,
+    ChangePasswordComponent,
     LayoutComponent,
     HeaderComponent,
     FooterComponent,
@@ -55,7 +57,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatSnackBarModule,
     FormsModule,
     NgxUiLoaderModule.forRoot({}),
-    StoreModule.forRoot({ authReducer }),
+    StoreModule.forRoot({ auth: authReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: !isDevMode(),
