@@ -9,3 +9,15 @@ export interface CountOfBookingStatus {
   countOfCancelledBooking: number;
   countOfTotalBooking: number;
 }
+export interface Response {
+  status: string;
+  statusCode: number;
+  message: string;
+  data: string;
+}
+
+export interface ChangePassword {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}

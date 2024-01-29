@@ -5,4 +5,5 @@ export const url = {
   countOfBookingStatus: `/api/dashboard/countOfBookingStatus`,
   listOfLatestBooking: `/api/dashboard/listOfLatestBooking`,
   graphOfUser: `/api/dashboard/graphOfUser`,
+  changePassword: `/api/changePassword `,
 };
