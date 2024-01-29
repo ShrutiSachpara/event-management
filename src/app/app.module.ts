@@ -26,6 +26,11 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BaseTableComponent } from './base/base-table/base-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BaseCardComponent } from './base/base-card/base-card.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FooterComponent,
     SidebarComponent,
     DashboardComponent,
+    BaseTableComponent,
+    BaseCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,8 +61,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BrowserAnimationsModule,
     MatSnackBarModule,
     FormsModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    NgChartsModule,
     NgxUiLoaderModule.forRoot({}),
-    StoreModule.forRoot({ authReducer }),
+    StoreModule.forRoot({ auth: authReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: !isDevMode(),

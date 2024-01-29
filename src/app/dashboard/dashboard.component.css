@@ -1,0 +1,8 @@
+.chart {
+  box-sizing: border-box;
+  display: block;
+  height: 224px !important;
+  width: 258px !important;
+  align-items: center !important;
+  margin-left: 137px !important;
+}
