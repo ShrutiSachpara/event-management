@@ -42,9 +42,9 @@ export class ChangePasswordComponent {
       this.changePasswordService
         .changePassword(data)
         .subscribe((response: any) => {
-          if (response.statusCode === 200) {
+          if (response.statusCode === 202) {
             this.showMessage(response.message, 'success');
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['login']);
           } else {
             this.showMessage(response.message, 'dismiss');
           }
