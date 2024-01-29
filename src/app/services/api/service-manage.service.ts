@@ -1,33 +1,19 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, switchMap, take } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { baseUrl } from './apiRoute';
 import { url } from './apiUrl';
 import { ServiceManage } from 'src/app/data-type';
-import { selectAuthToken } from '../../auth/auth.selector';
-import { Store, select } from '@ngrx/store';
+import { HeaderService } from './header.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceManageService {
-  constructor(private http: HttpClient, private store: Store) {}
-  private getRequestHeaders(): Observable<HttpHeaders> {
-    return this.store.pipe(
-      select(selectAuthToken),
-      take(1),
-      switchMap((token) => {
-        const reqHeaders = new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
-        });
-        return of(reqHeaders);
-      })
-    );
-  }
+  constructor(private http: HttpClient, private headerService: HeaderService) {}
 
   getEventData(): Observable<any> {
-    return this.getRequestHeaders().pipe(
+    return this.headerService.getRequestHeaders().pipe(
       switchMap((headers) => {
         const urls = baseUrl.basicUrl + url.viewService;
         return this.http.post(urls, {}, { headers });
@@ -36,7 +22,7 @@ export class ServiceManageService {
   }
 
   insertEventManageData(eventData: ServiceManage): Observable<any> {
-    return this.getRequestHeaders().pipe(
+    return this.headerService.getRequestHeaders().pipe(
       switchMap((headers) => {
         const urls = baseUrl.basicUrl + url.addService;
         return this.http.post(urls, eventData, { headers });
@@ -45,7 +31,7 @@ export class ServiceManageService {
   }
 
   updateEvent(id: number, eventData: ServiceManage): Observable<any> {
-    return this.getRequestHeaders().pipe(
+    return this.headerService.getRequestHeaders().pipe(
       switchMap((headers) => {
         const urls = baseUrl.basicUrl + url.updateService + id;
         return this.http.put(urls, eventData, { headers });
@@ -54,7 +40,7 @@ export class ServiceManageService {
   }
 
   deleteEvent(id: number): Observable<any> {
-    return this.getRequestHeaders().pipe(
+    return this.headerService.getRequestHeaders().pipe(
       switchMap((headers) => {
         const urls = baseUrl.basicUrl + url.deleteService + id;
         let data = { is_deleted: true };
