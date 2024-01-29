@@ -9,3 +9,8 @@ export interface Response {
   message: string;
   data: string;
 }
+
+export interface AddEvent {
+  target: HTMLInputElement;
+  event_name: string;
+}

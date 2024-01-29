@@ -1,0 +1,8 @@
+.but{
+    align-items:end !important;
+}
+
+.d-flex {
+    display: flex!important;
+    justify-content: space-between;
+}

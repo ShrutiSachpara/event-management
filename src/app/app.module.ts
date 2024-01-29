@@ -26,7 +26,10 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { ManageEventComponent } from './manage-event/manage-event.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BaseTableComponent } from './base/base-table/base-table.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,12 +37,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BaseInputComponent,
     BaseButtonComponent,
     LoaderComponent,
+    BaseTableComponent,
     ForgotPasswordComponent,
     LayoutComponent,
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
     DashboardComponent,
+    ManageEventComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,8 +59,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BrowserAnimationsModule,
     MatSnackBarModule,
     FormsModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
     NgxUiLoaderModule.forRoot({}),
-    StoreModule.forRoot({ authReducer }),
+    StoreModule.forRoot({ auth: authReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: !isDevMode(),

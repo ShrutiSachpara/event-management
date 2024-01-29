@@ -4,17 +4,20 @@ import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ManageEventComponent } from './manage-event/manage-event.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-{ path: 'verifyEmail', component: ForgotPasswordComponent },
-  //{ path: 'updatePassword', component: ForgotPasswordComponent },
+  { path: 'verifyEmail', component: ForgotPasswordComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   {
     path: 'dashboard',
     component: LayoutComponent,
-    children: [{ path: '', component: DashboardComponent }],
+    children: [
+      { path: '', component: DashboardComponent },
+      { path: 'eventManage', component: ManageEventComponent },
+    ],
   },
 ];
 
