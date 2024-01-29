@@ -43,7 +43,7 @@ export class ChangePasswordComponent {
         .changePassword(data)
         .subscribe((response: any) => {
           if (response.statusCode === 200) {
-            this.showMessage('Password changed successfully', 'success');
+            this.showMessage(response.message, 'success');
             this.router.navigate(['/dashboard']);
           } else {
             this.showMessage(response.message, 'dismiss');
