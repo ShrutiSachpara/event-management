@@ -21,6 +21,15 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoaderComponent } from './loader/loader.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { FormsModule } from '@angular/forms';
+import { ServiceManageComponent } from './service-manage/service-manage.component';
+import { BaseTableComponent } from './base/base-table/base-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { LayoutComponent } from './layout/layout.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +39,13 @@ import { FormsModule } from '@angular/forms';
     BaseButtonComponent,
     LoaderComponent,
     ForgotPasswordComponent,
+    ServiceManageComponent,
+    BaseTableComponent,
+    LayoutComponent,
+    HeaderComponent,
+    FooterComponent,
+    SidebarComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,8 +60,10 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MatSnackBarModule,
     FormsModule,
+    MatTableModule,
+    MatPaginatorModule,
     NgxUiLoaderModule.forRoot({}),
-    StoreModule.forRoot({ authReducer }),
+    StoreModule.forRoot({ auth: authReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: !isDevMode(),

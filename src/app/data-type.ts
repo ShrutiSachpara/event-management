@@ -9,3 +9,11 @@ export interface Response {
   message: string;
   data: string;
 }
+
+export interface ServiceManage {
+  target: HTMLInputElement;
+  
+  service_name: string;
+  price: number;
+  service_description: string;
+}

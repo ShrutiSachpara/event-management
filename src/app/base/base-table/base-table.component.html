@@ -1,0 +1,58 @@
+<div class="row justify-content-end">
+  <div class="col-md-4">
+    <mat-form-field style="margin: 10px">
+      <input
+        placeholder="Search"
+        matInput
+        (keyup)="applyFilter($event)"
+        #input
+      />
+    </mat-form-field>
+  </div>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="table align-middle mb-0">
+  <ng-container
+    *ngFor="let column of columns; let i = index"
+    [matColumnDef]="column"
+  >
+    <th mat-header-cell *matHeaderCellDef ngbSortable>
+      {{ column | titlecase }}
+      <span
+        class="sortable-icon"
+        (click)="onSort({ column, direction: sortedColumn === column ? (isAscending ? 'desc' : 'asc') : 'asc' })"
+      >
+        <mat-icon aria-hidden="false" aria-label="Sort" class="arrow-icon">
+          {{
+            sortedColumn === column && isAscending
+              ? "arrow_upward"
+              : "arrow_downward"
+          }}
+        </mat-icon>
+      </span>
+    </th>
+    <td mat-cell *matCellDef="let item; let j = index">
+      <ng-container *ngIf="column !== 'action'">
+        {{ getColumnValue(item, column) }}
+      </ng-container>
+      <ng-container *ngIf="column === 'action'">
+        <button mat-icon-button (click)="editRecord(item)">
+          <mat-icon style="color: green">edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteRecord(item)">
+          <mat-icon style="color: red">delete</mat-icon>
+        </button>
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns"></tr>
+</table>
+
+<mat-paginator
+  [pageSize]="pageSize"
+  [pageIndex]="currentPage - 1"
+  [length]="dataSource.data.length"
+  (page)="onPageChanged($event.pageIndex + 1)"
+></mat-paginator>

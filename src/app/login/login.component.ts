@@ -75,7 +75,7 @@ export class LoginComponent {
             const token = response.data;
             this.store.dispatch(AuthActions.setToken({ token }));
             this.authService.setLoggedIn(true);
-            this.router.navigate(['/changePassword']);
+            this.router.navigate(['/dashboard']);
           } else {
             this.showMessage(response.message, 'Error');
           }
