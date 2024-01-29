@@ -93,7 +93,7 @@ export class DashboardComponent {
             label: 'Graph of User',
             data: this.graphData.map((item) => item.countOfTotalUser),
             borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 2, 
+            borderWidth: 2,
           },
         ],
       },
