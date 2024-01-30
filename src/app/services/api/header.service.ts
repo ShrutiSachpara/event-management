@@ -12,7 +12,7 @@ export class HeaderService {
   constructor(private store: Store) {}
 
   getRequestHeaders(): Observable<HttpHeaders> {
-    return this.store.pipe(
+    return this.store.pipe( 
       select(selectAuthToken),
       take(1),
       switchMap((token) => {
