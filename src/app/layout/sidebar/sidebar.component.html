@@ -1,49 +1,20 @@
-<div class="wrapper">
-  <div class="page-wrapper">
-    <div class="sidebar-wrapper" data-simplebar="true">
-      <div class="sidebar-header">
-        <div>
-          <h4 class="logo-text">Rocker</h4>
-        </div>javascript
-        <div class="toggle-icon ms-auto">
-          <i class="bx bx-arrow-to-left"></i>
-        </div>
+<div class="page-wrapper">
+  <div class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+      <div>
+        <h6 class="logo-text">Event</h6>
       </div>
-      <ul class="metismenu" id="menu">
-        <li>
-          <a  class="has-arrow">
-            <div class="parent-icon"><i class="bx bxs-dashboard"></i></div>
-            <div class="menu-title">Dashboard</div>
-          </a>
-          <a class="has-arrow">
-            <div class="parent-icon"><i class="bx bx-calendar-event"></i></div>
-            <div class="menu-title">Event</div>
-          </a>
-          
-          <a  [routerLink]="['/dashboard/serviceManage']" class="has-arrow">
-            <div class="parent-icon"><i class="bx bx-cart"></i></div>
-            <div class="menu-title">Service</div>
-          </a>
-          <a class="has-arrow" >
-            <div class="parent-icon"><i class="bx bxs-book-bookmark"></i></div>
-            <div class="menu-title">Booking Management</div>
-          </a>
-
-          <a class="has-arrow" >
-            <div class="parent-icon"><i class="bx bxs-report"></i></div>
-            <div class="menu-title">Reports</div>
-          </a>
-          <a class="has-arrow" >
-            <div class="parent-icon"><i class="bx bxs-key"></i></div>
-            <div class="menu-title">Reset Password</div>
-          </a>
-
-          <a class="has-arrow" >
-            <div class="parent-icon"><i class="bx bx-error"></i></div>
-            <div class="menu-title">Errors</div>
-          </a>
-        </li>
-      </ul>
+      <div class="toggle-icon ms-auto">
+        <i class="bx bx-arrow-to-left"></i>
+      </div>
     </div>
+    <ul class="metismenu" id="menu">
+      <li *ngFor="let item of menuItems">
+        <a class="has-arrow" [routerLink]="['/', item.route]">
+          <div class="parent-icon"><i class="{{ item.icon }}"></i></div>
+          <div class="menu-title">{{ item.title }}</div>
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
