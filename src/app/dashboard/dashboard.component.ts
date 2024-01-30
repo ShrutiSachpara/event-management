@@ -2,17 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { DashboardService } from '../../app/services/api/dashboard.service';
 import { HttpStatus } from 'src/helper/httpStatus';
 import { ToasterService } from '../services/toaster.service';
-import {
-  CategoryScale,
-  Chart,
-  Legend,
-  LineController,
-  LineElement,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-} from 'chart.js';
+import { ChartService } from '../services/api/chart.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,7 +23,8 @@ export class DashboardComponent {
 
   constructor(
     private dashboardService: DashboardService,
-    private toaster: ToasterService
+    private toaster: ToasterService,
+    private chartService: ChartService
   ) {}
 
   private formatDate(dateString: string | Date): string {
@@ -46,6 +37,7 @@ export class DashboardComponent {
     this.countOfBookingStatus();
     this.listOfLatestBooking();
     this.loadData();
+    this.getGraphData();
   }
 
   ngAfterViewInit() {
@@ -56,7 +48,7 @@ export class DashboardComponent {
     this.getGraphData();
   }
 
-  getGraphData() {
+  getGraphData(): void {
     this.dashboardService.getGraphOfUser().subscribe((res: any) => {
       if (res && res.statusCode === HttpStatus.OK) {
         this.graphData = res.data;
@@ -65,39 +57,17 @@ export class DashboardComponent {
     });
   }
 
-  renderGraphChart() {
-    const ctx = document.getElementById('chart1') as HTMLCanvasElement;
-
-    const existingChart = Chart.getChart(ctx);
-    if (existingChart) {
-      existingChart.destroy();
-    }
-
-    Chart.register(
-      LineController,
-      LinearScale,
-      PointElement,
-      LineElement,
-      Title,
-      Legend,
-      Tooltip,
-      CategoryScale
+  renderGraphChart(): void {
+    const labels = this.graphData.map((item) => item.Year);
+    const data = this.graphData.map((item) => item.countOfTotalUser);
+    const borderColor = 'rgba(75, 192, 192, 1)';
+    this.chartService.createPieChart(
+      'chart1',
+      labels,
+      data,
+      'Graph of User',
+      borderColor
     );
-
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: this.graphData.map((item) => item.Year),
-        datasets: [
-          {
-            label: 'Graph of User',
-            data: this.graphData.map((item) => item.countOfTotalUser),
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 2,
-          },
-        ],
-      },
-    });
   }
 
   onPageChanged(page: number): void {

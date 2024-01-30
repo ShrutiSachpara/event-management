@@ -2,40 +2,40 @@
   <div class="page-content">
     <!-- card -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
-      <div class="col">
+      <div class="col mb-4">
         <app-base-card
           [title]="'Total Pending Booking'"
-          [value]="countOfStatus.countOfPendingBooking"
+          [value]="countOfStatus.countOfPendingBooking || 0"
           [icon]="'bx bxs-cart'"
           [cardClass]="'border-start border-0 border-3 border-info'"
           [valueClass]="'text-info'"
           [iconClass]="'bg-gradient-scooter text-white'"
         ></app-base-card>
       </div>
-      <div class="col">
+      <div class="col mb-4">
         <app-base-card
           [title]="'Total Approved Booking'"
-          [value]="countOfStatus.countOfApprovedBooking"
+          [value]="countOfStatus.countOfApprovedBooking || 0"
           [icon]="'bx bxs-cart'"
           [cardClass]="'border-start border-0 border-3 border-info'"
           [valueClass]="'text-info'"
           [iconClass]="'bg-gradient-scooter text-white'"
         ></app-base-card>
       </div>
-      <div class="col">
+      <div class="col mb-4">
         <app-base-card
           [title]="'Total Cancelled Booking'"
-          [value]="countOfStatus.countOfCancelledBooking"
+          [value]="countOfStatus.countOfCancelledBooking || 0"
           [icon]="'bx bxs-cart'"
           [cardClass]="'border-start border-0 border-3 border-info'"
           [valueClass]="'text-info'"
           [iconClass]="'bg-gradient-scooter text-white'"
         ></app-base-card>
       </div>
-      <div class="col">
+      <div class="col mb-4">
         <app-base-card
           [title]="'Total Booking'"
-          [value]="countOfStatus.countOfTotalBooking"
+          [value]="countOfStatus.countOfTotalBooking || 0"
           [icon]="'bx bxs-cart'"
           [cardClass]="'border-start border-0 border-3 border-info'"
           [valueClass]="'text-info'"
@@ -72,7 +72,7 @@
         </div>
 
         <!-- table -->
-        <div>
+        <div class="table-responsive">
           <app-base-table
             [data]="flattenedBookingData"
             [pageSize]="pageSize"
