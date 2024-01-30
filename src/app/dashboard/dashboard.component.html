@@ -5,7 +5,7 @@
       <div class="col mb-4">
         <app-base-card
           [title]="'Total Pending Booking'"
-          [value]="countOfStatus.countOfPendingBooking || 0"
+          [value]="countOfStatus.countOfPendingBooking"
           [icon]="'bx bxs-cart'"
           [cardClass]="'border-start border-0 border-3 border-info'"
           [valueClass]="'text-info'"
@@ -15,7 +15,7 @@
       <div class="col mb-4">
         <app-base-card
           [title]="'Total Approved Booking'"
-          [value]="countOfStatus.countOfApprovedBooking || 0"
+          [value]="countOfStatus.countOfApprovedBooking"
           [icon]="'bx bxs-cart'"
           [cardClass]="'border-start border-0 border-3 border-info'"
           [valueClass]="'text-info'"
@@ -25,7 +25,7 @@
       <div class="col mb-4">
         <app-base-card
           [title]="'Total Cancelled Booking'"
-          [value]="countOfStatus.countOfCancelledBooking || 0"
+          [value]="countOfStatus.countOfCancelledBooking"
           [icon]="'bx bxs-cart'"
           [cardClass]="'border-start border-0 border-3 border-info'"
           [valueClass]="'text-info'"
@@ -35,7 +35,7 @@
       <div class="col mb-4">
         <app-base-card
           [title]="'Total Booking'"
-          [value]="countOfStatus.countOfTotalBooking || 0"
+          [value]="countOfStatus.countOfTotalBooking"
           [icon]="'bx bxs-cart'"
           [cardClass]="'border-start border-0 border-3 border-info'"
           [valueClass]="'text-info'"
