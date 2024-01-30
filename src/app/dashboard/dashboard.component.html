@@ -1,1 +1,100 @@
-<p>dashboard works!</p>
+<div class="page-wrapper">
+  <div class="page-content">
+    <!-- card -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+      <div class="col mb-4">
+        <app-base-card
+          [title]="'Total Pending Booking'"
+          [value]="countOfStatus.countOfPendingBooking"
+          [icon]="'bx bxs-cart'"
+          [cardClass]="'border-start border-0 border-3 border-info'"
+          [valueClass]="'text-info'"
+          [iconClass]="'bg-gradient-scooter text-white'"
+        ></app-base-card>
+      </div>
+      <div class="col mb-4">
+        <app-base-card
+          [title]="'Total Approved Booking'"
+          [value]="countOfStatus.countOfApprovedBooking"
+          [icon]="'bx bxs-cart'"
+          [cardClass]="'border-start border-0 border-3 border-info'"
+          [valueClass]="'text-info'"
+          [iconClass]="'bg-gradient-scooter text-white'"
+        ></app-base-card>
+      </div>
+      <div class="col mb-4">
+        <app-base-card
+          [title]="'Total Cancelled Booking'"
+          [value]="countOfStatus.countOfCancelledBooking"
+          [icon]="'bx bxs-cart'"
+          [cardClass]="'border-start border-0 border-3 border-info'"
+          [valueClass]="'text-info'"
+          [iconClass]="'bg-gradient-scooter text-white'"
+        ></app-base-card>
+      </div>
+      <div class="col mb-4">
+        <app-base-card
+          [title]="'Total Booking'"
+          [value]="countOfStatus.countOfTotalBooking"
+          [icon]="'bx bxs-cart'"
+          [cardClass]="'border-start border-0 border-3 border-info'"
+          [valueClass]="'text-info'"
+          [iconClass]="'bg-gradient-scooter text-white'"
+        ></app-base-card>
+      </div>
+    </div>
+
+    <!-- graph -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card radius-10">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div>
+                <h6 class="mb-0 font-size">Graph of User</h6>
+              </div>
+            </div>
+            <div class="chart-container-2">
+              <canvas id="chart1" class="chart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- table -->
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div>
+            <h6 class="mb-0">New Booking</h6>
+          </div>
+        </div>
+
+        <!-- table -->
+        <div class="table-responsive">
+          <app-base-table
+            [data]="flattenedBookingData"
+            [pageSize]="pageSize"
+            [currentPage]="currentPage"
+            [columns]="[
+              'id',
+              'name',
+              'phone_number',
+              'email',
+              'event_date',
+              'status'
+            ]"
+            [sortedColumn]="sortedColumn"
+            [isAscending]="isAscending"
+            (pageChanged)="onPageChanged($event)"
+          >
+          </app-base-table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay toggle-icon"></div>
+  <a class="back-to-top"><i class="bx bxs-up-arrow-alt"></i></a>
+</div>

@@ -1,0 +1,15 @@
+<div class="card radius-10" [ngClass]="cardClass">
+  <div class="card-body">
+    <div class="d-flex align-items-center justify-content-between">
+      <div>
+        <p class="mb-0 text-secondary">{{ title }}</p>
+        <h4 class="my-1" [ngClass]="valueClass || '0'">{{ value }}</h4>
+      </div>
+      <div class="d-flex align-items-right ml-auto ml-35">
+        <div class="widgets-icons-2 rounded-circle" [ngClass]="iconClass">
+          <i [ngClass]="icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

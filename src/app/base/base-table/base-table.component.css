@@ -1,0 +1,13 @@
+.sortable-icon {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.arrow-icon {
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.baseTable {
+  margin: 10px !important;
+}

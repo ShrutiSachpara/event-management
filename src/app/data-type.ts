@@ -3,6 +3,12 @@ export interface Login {
   password: string;
 }
 
+export interface CountOfBookingStatus {
+  countOfPendingBooking: number;
+  countOfApprovedBooking: number;
+  countOfCancelledBooking: number;
+  countOfTotalBooking: number;
+}
 export interface Response {
   status: string;
   statusCode: number;
