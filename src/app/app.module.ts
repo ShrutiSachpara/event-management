@@ -21,6 +21,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoaderComponent } from './loader/loader.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { FormsModule } from '@angular/forms';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
@@ -39,6 +40,7 @@ import { BaseTableComponent } from './base/base-table/base-table.component';
     LoaderComponent,
     BaseTableComponent,
     ForgotPasswordComponent,
+    ChangePasswordComponent,
     LayoutComponent,
     HeaderComponent,
     FooterComponent,

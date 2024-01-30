@@ -10,6 +10,12 @@ export interface Response {
   data: string;
 }
 
+export interface ChangePassword {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
 export interface AddEvent {
   target: HTMLInputElement;
   event_name: string;
