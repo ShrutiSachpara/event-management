@@ -5,15 +5,13 @@ import {
   EventEmitter,
   OnChanges,
   SimpleChanges,
-  ViewChildren,
-  QueryList,
   ViewChild,
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
-import { NgbdSortableHeader, SortEvent } from 'src/app/ngbdSortableHeader';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-base-table',
@@ -82,29 +80,6 @@ export class BaseTableComponent implements OnChanges {
     }
   }
 
-  @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
-
-  onSort({ column, direction }: SortEvent) {
-    this.sortedColumn = column;
-    this.isAscending = direction === 'asc';
-
-    this.data.sort((a, b) => {
-      const firstValue = this.getColumnValue(a, column);
-      const secondValue = this.getColumnValue(b, column);
-
-      if (firstValue < secondValue) {
-        return this.isAscending ? -1 : 1;
-      } else if (firstValue > secondValue) {
-        return this.isAscending ? 1 : -1;
-      } else {
-        return 0;
-      }
-    });
-
-    this.dataSource.data = this.data;
-    this.updateDisplayedData();
-  }
-
   onPageChanged(newPage: number) {
     this.currentPage = newPage;
     this.updateDisplayedData();
@@ -115,5 +90,21 @@ export class BaseTableComponent implements OnChanges {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.displayedData = this.dataSource.data.slice(startIndex, endIndex);
+  }
+
+  sortData(sort: Sort) {
+    const data = this.dataSource.data.slice();
+    if (!sort.active || sort.direction === '') {
+      this.dataSource.data = data;
+      return;
+    }
+    this.dataSource.data = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      return this.compare(a[sort.active], b[sort.active], isAsc);
+    });
+  }
+
+  compare(a: any, b: any, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }

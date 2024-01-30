@@ -6,5 +6,8 @@ export const url = {
   updateService: `/api/serviceMange/updateService/`,
   viewService: '/api/serviceMange/listOfService',
   deleteService: `/api/serviceMange/deleteService/`,
+  countOfBookingStatus: `/api/dashboard/countOfBookingStatus`,
+  listOfLatestBooking: `/api/dashboard/listOfLatestBooking`,
+  graphOfUser: `/api/dashboard/graphOfUser`,
   changePassword: `/api/changePassword `,
 };

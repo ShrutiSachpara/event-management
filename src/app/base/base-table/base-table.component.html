@@ -1,6 +1,6 @@
 <div class="row justify-content-end">
   <div class="col-md-4">
-    <mat-form-field style="margin: 10px">
+    <mat-form-field class="baseTable">
       <input
         placeholder="Search"
         matInput
@@ -11,26 +11,14 @@
   </div>
 </div>
 
-<table mat-table [dataSource]="dataSource" class="table align-middle mb-0">
+<table mat-table [dataSource]="dataSource" matSort class="table align-middle mb-0" (matSortChange)="sortData($event)">
   <ng-container
     *ngFor="let column of columns; let i = index"
     [matColumnDef]="column"
   >
-    <th mat-header-cell *matHeaderCellDef ngbSortable>
-      {{ column | titlecase }}
-      <span
-        class="sortable-icon"
-        (click)="onSort({ column, direction: sortedColumn === column ? (isAscending ? 'desc' : 'asc') : 'asc' })"
-      >
-        <mat-icon aria-hidden="false" aria-label="Sort" class="arrow-icon">
-          {{
-            sortedColumn === column && isAscending
-              ? "arrow_upward"
-              : "arrow_downward"
-          }}
-        </mat-icon>
-      </span>
-    </th>
+  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+    {{ column | titlecase }}
+  </th>
     <td mat-cell *matCellDef="let item; let j = index">
       <ng-container *ngIf="column !== 'action'">
         {{ getColumnValue(item, column) }}

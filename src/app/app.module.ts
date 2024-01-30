@@ -31,6 +31,9 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BaseCardComponent } from './base/base-card/base-card.component';
+import { NgChartsModule } from 'ng2-charts';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FooterComponent,
     SidebarComponent,
     DashboardComponent,
+    BaseTableComponent,
+    BaseCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatSnackBarModule,
     FormsModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatPaginatorModule,
+    NgChartsModule,
+    MatSortModule,
     NgxUiLoaderModule.forRoot({}),
     StoreModule.forRoot({ auth: authReducer }),
     StoreDevtoolsModule.instrument({

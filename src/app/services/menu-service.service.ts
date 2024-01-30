@@ -10,6 +10,7 @@ export class MenuService {
       { icon: 'bx bx-category', title: 'Category', route: 'category' },
       { icon: 'bx bx-cart', title: 'Product', route: 'product' },
       { icon: 'bx bx-bar-chart-alt', title: 'Report', route: 'report' },
+      { icon: 'bx bxs-key', title: 'Reset Password', route: 'changePassword' },
     ];
   }
 }
