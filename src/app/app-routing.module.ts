@@ -14,10 +14,10 @@ const routes: Routes = [
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'changePassword', component: ChangePasswordComponent },
   {
-    path: 'dashboard',
+    path: '',
     component: LayoutComponent,
     children: [
-      { path: '', component: DashboardComponent },
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'serviceManage', component: ServiceManageComponent },
     ],
   },

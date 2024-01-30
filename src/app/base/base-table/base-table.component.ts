@@ -5,12 +5,15 @@ import {
   EventEmitter,
   OnChanges,
   SimpleChanges,
+  ViewChildren,
+  QueryList,
   ViewChild,
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
+import { NgbdSortableHeader, SortEvent } from 'src/app/ngbdSortableHeader';
 import { Sort } from '@angular/material/sort';
 
 @Component({
@@ -25,7 +28,7 @@ export class BaseTableComponent implements OnChanges {
   @Input() columns: string[] = [];
   @Input() sortedColumn: string = '';
   @Input() isAscending: boolean = true;
-  @Input() columnActionTemplate: any; 
+  @Input() columnActionTemplate: any;
   @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
   @Output() onEdit = new EventEmitter<any>();
   @Output() onDelete = new EventEmitter<any>();
@@ -78,6 +81,29 @@ export class BaseTableComponent implements OnChanges {
       console.warn(`Property '${column}' does not exist in the data item.`);
       return '';
     }
+  }
+
+  @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
+
+  onSort({ column, direction }: SortEvent) {
+    this.sortedColumn = column;
+    this.isAscending = direction === 'asc';
+
+    this.data.sort((a, b) => {
+      const firstValue = this.getColumnValue(a, column);
+      const secondValue = this.getColumnValue(b, column);
+
+      if (firstValue < secondValue) {
+        return this.isAscending ? -1 : 1;
+      } else if (firstValue > secondValue) {
+        return this.isAscending ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
+
+    this.dataSource.data = this.data;
+    this.updateDisplayedData();
   }
 
   onPageChanged(newPage: number) {

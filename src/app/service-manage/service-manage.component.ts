@@ -27,7 +27,7 @@ export class ServiceManageComponent {
   isDeleteConfirmationOpen: boolean = false;
   showAlert: boolean = false;
   alertMessage: string = '';
-  columns = ['id', 'service_name', 'price', 'created_at', 'action'];
+  columns = ['Sr. No', 'service_name', 'price', 'created_at', 'action'];
 
   constructor(
     private serviceManageService: ServiceManageService,
