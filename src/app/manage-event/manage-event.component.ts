@@ -27,7 +27,7 @@ export class ManageEventComponent implements OnInit {
   isDeleteConfirmationOpen: boolean = false;
   showAlert: boolean = false;
   alertMessage: string = '';
-  columns = ['id', 'event_name', 'created_at', 'action'];
+  columns = ['Sr. No', 'event_name', 'created_at', 'action'];
 
   constructor(
     private manageEventService: ManageEventService,
@@ -161,8 +161,6 @@ export class ManageEventComponent implements OnInit {
       } else {
         this.getEvent(formData);
       }
-    } else {
-      console.log('Form is not valid. Please correct the errors.');
     }
   }
 }

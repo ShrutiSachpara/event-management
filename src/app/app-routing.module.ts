@@ -12,13 +12,13 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'verifyEmail', component: ForgotPasswordComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
-  { path: 'changePassword', component: ChangePasswordComponent },
   {
-    path: 'dashboard',
+    path: '',
     component: LayoutComponent,
     children: [
-      { path: '', component: DashboardComponent },
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'eventManage', component: ManageEventComponent },
+      { path: 'changePassword', component: ChangePasswordComponent },
     ],
   },
 ];
