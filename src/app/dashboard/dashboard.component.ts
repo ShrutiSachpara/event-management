@@ -34,10 +34,7 @@ export class DashboardComponent {
   }
 
   ngOnInit() {
-    this.countOfBookingStatus();
-    this.listOfLatestBooking();
     this.loadData();
-    this.getGraphData();
   }
 
   ngAfterViewInit() {
@@ -45,15 +42,23 @@ export class DashboardComponent {
   }
 
   loadData(): void {
-    this.getGraphData();
+    Promise.all([
+      this.countOfBookingStatus(),
+      this.listOfLatestBooking(),
+      this.loadData(),
+      this.getGraphData(),
+    ]);
   }
 
-  getGraphData(): void {
-    this.dashboardService.getGraphOfUser().subscribe((res: any) => {
-      if (res && res.statusCode === HttpStatus.OK) {
-        this.graphData = res.data;
-        this.renderGraphChart();
-      }
+  getGraphData(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.dashboardService.getGraphOfUser().subscribe((res: any) => {
+        if (res && res.statusCode === HttpStatus.OK) {
+          this.graphData = res.data;
+          this.renderGraphChart();
+        }
+        resolve();
+      });
     });
   }
 
@@ -75,36 +80,44 @@ export class DashboardComponent {
     this.listOfLatestBooking();
   }
 
-  countOfBookingStatus() {
-    this.dashboardService
-      .getCountOfBookingStatus()
-      .subscribe((response: any) => {
-        if (response.statusCode === HttpStatus.OK) {
-          this.countOfStatus = response.data[0];
-        } else {
-          this.showMessage(response.message, 'dismiss');
-        }
-      });
+  countOfBookingStatus(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.dashboardService
+        .getCountOfBookingStatus()
+        .subscribe((response: any) => {
+          if (response.statusCode === HttpStatus.OK) {
+            this.countOfStatus = response.data[0];
+          } else {
+            this.showMessage(response.message, 'dismiss');
+          }
+          resolve();
+        });
+    });
   }
 
-  listOfLatestBooking() {
-    this.dashboardService.getLatestBookingData().subscribe((response: any) => {
-      if (response.statusCode === HttpStatus.OK) {
-        this.flattenedBookingData = response.data.map((booking: any) => ({
-          id: booking.id,
-          name: booking.auth_user?.name,
-          phone_number: booking.auth_user?.phone_number,
-          email: booking.auth_user?.email,
-          event_date: this.formatDate(booking.event_date),
-          status: booking.status,
-        }));
+  listOfLatestBooking(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.dashboardService
+        .getLatestBookingData()
+        .subscribe((response: any) => {
+          if (response.statusCode === HttpStatus.OK) {
+            this.flattenedBookingData = response.data.map((booking: any) => ({
+              id: booking.id,
+              name: booking.auth_user?.name,
+              phone_number: booking.auth_user?.phone_number,
+              email: booking.auth_user?.email,
+              event_date: this.formatDate(booking.event_date),
+              status: booking.status,
+            }));
 
-        this.totalPages = Math.ceil(
-          this.flattenedBookingData.length / this.pageSize
-        );
-      } else {
-        this.showMessage(response.message, 'dismiss');
-      }
+            this.totalPages = Math.ceil(
+              this.flattenedBookingData.length / this.pageSize
+            );
+          } else {
+            this.showMessage(response.message, 'dismiss');
+          }
+          resolve();
+        });
     });
   }
 
