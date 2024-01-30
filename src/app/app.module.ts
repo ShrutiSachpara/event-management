@@ -27,10 +27,14 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ManageEventComponent } from './manage-event/manage-event.component';
+import { BaseTableComponent } from './base/base-table/base-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { BaseTableComponent } from './base/base-table/base-table.component';
+import { BaseCardComponent } from './base/base-card/base-card.component';
+import { NgChartsModule } from 'ng2-charts';
+import { MatSortModule } from '@angular/material/sort';
+import { ManageEventComponent } from './manage-event/manage-event.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +51,8 @@ import { BaseTableComponent } from './base/base-table/base-table.component';
     SidebarComponent,
     DashboardComponent,
     ManageEventComponent,
+    BaseTableComponent,
+    BaseCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +71,8 @@ import { BaseTableComponent } from './base/base-table/base-table.component';
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
+    NgChartsModule,
+    MatSortModule,
     NgxUiLoaderModule.forRoot({}),
     StoreModule.forRoot({ auth: authReducer }),
     StoreDevtoolsModule.instrument({

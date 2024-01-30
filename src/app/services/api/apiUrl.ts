@@ -6,5 +6,8 @@ export const url = {
   listOfEvent: `/api/eventMange/listOfEvent`,
   editEvent: `/api/eventMange/editEvent/`,
   deleteEvent: `/api/eventMange/deleteEvent/`,
+  countOfBookingStatus: `/api/dashboard/countOfBookingStatus`,
+  listOfLatestBooking: `/api/dashboard/listOfLatestBooking`,
+  graphOfUser: `/api/dashboard/graphOfUser`,
   changePassword: `/api/changePassword `,
 };

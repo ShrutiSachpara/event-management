@@ -14,6 +14,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { NgbdSortableHeader, SortEvent } from 'src/app/ngbdSortableHeader';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-base-table',
@@ -115,5 +116,21 @@ export class BaseTableComponent implements OnChanges {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.displayedData = this.dataSource.data.slice(startIndex, endIndex);
+  }
+
+  sortData(sort: Sort) {
+    const data = this.dataSource.data.slice();
+    if (!sort.active || sort.direction === '') {
+      this.dataSource.data = data;
+      return;
+    }
+    this.dataSource.data = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      return this.compare(a[sort.active], b[sort.active], isAsc);
+    });
+  }
+
+  compare(a: any, b: any, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }
