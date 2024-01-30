@@ -26,7 +26,7 @@ export class ServiceManageService {
     );
   }
 
-  getEventData(): Observable<any> {
+  getServiceData(): Observable<any> {
     return this.getRequestHeaders().pipe(
       switchMap((headers) => {
         const urls = baseUrl.basicUrl + url.viewService;
@@ -35,7 +35,7 @@ export class ServiceManageService {
     );
   }
 
-  insertEventManageData(eventData: ServiceManage): Observable<any> {
+  insertManageServiceData(eventData: ServiceManage): Observable<any> {
     return this.getRequestHeaders().pipe(
       switchMap((headers) => {
         const urls = baseUrl.basicUrl + url.addService;
@@ -44,11 +44,11 @@ export class ServiceManageService {
     );
   }
 
-  updateEvent(id: number, eventData: ServiceManage): Observable<any> {
+  updateService(id: number, serviceData: ServiceManage): Observable<any> {
     return this.getRequestHeaders().pipe(
       switchMap((headers) => {
         const urls = baseUrl.basicUrl + url.updateService + id;
-        return this.http.put(urls, eventData, { headers });
+        return this.http.put(urls, serviceData, { headers });
       })
     );
   }

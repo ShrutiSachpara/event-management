@@ -18,10 +18,10 @@ export class ServiceManageComponent {
   pageSize: number = 7;
   sortedColumn: string = 'order_id';
   isAscending: boolean = true;
-  GetNewEvent!: FormGroup;
+  serviceForm!: FormGroup;
   searchEvent = '';
   isEditMode: boolean = false;
-  selectedEventId: number | null = null;
+  selectedServiceId: number | null = null;
   page: number = 1;
   isLoading: boolean = false;
   isDeleteConfirmationOpen: boolean = false;
@@ -34,7 +34,7 @@ export class ServiceManageComponent {
     private toaster: ToasterService,
     private fb: FormBuilder
   ) {
-    this.GetNewEvent = this.fb.group({
+    this.serviceForm = this.fb.group({
       event_manage_id: [
         '',
         [Validators.required, Validators.pattern(/^[0-9]+$/)],
@@ -52,16 +52,16 @@ export class ServiceManageComponent {
   }
 
   close = ENUM.CLOSE;
-  addEvent = ENUM.ADD_SERVICE;
-  eventManageId = Messages.ID;
-  eventManageIdType = Messages.NUM_VALID_Type;
+  addService = ENUM.ADD_SERVICE;
+  serviceId = Messages.ID;
+  serviceIdType = Messages.NUM_VALID_Type;
   serviceName = Messages.SERVICE_NAME;
   serviceNameLength = Messages.SERVICE_NAME_LENGTH;
   serviceNameType = Messages.SERVICE_NAME_TYPE;
   priceReq = Messages.PRICE_REQ;
 
   ngOnInit() {
-    this.listOfEvent();
+    this.listOfService();
   }
 
   onPageChanged(page: number): void {
@@ -72,8 +72,8 @@ export class ServiceManageComponent {
     this.toaster.showMessage(message, action);
   }
 
-  listOfEvent() {
-    this.serviceManageService.getEventData().subscribe((response: any) => {
+  listOfService() {
+    this.serviceManageService.getServiceData().subscribe((response: any) => {
       if (response && response.status === 'success') {
         this.listOfManageServiceData = response.data;
         this.totalPages = Math.ceil(
@@ -85,31 +85,31 @@ export class ServiceManageComponent {
     });
   }
 
-  getEvent(data: any) {
+  getService(data: any) {
     this.serviceManageService
-      .insertEventManageData(data)
+      .insertManageServiceData(data)
       .subscribe((res: any) => {
         if (res && res.statusCode === 201) {
           alert(res.message);
-          this.listOfEvent();
+          this.listOfService();
         }
       });
   }
 
   deleteList(id: number) {
-    this.selectedEventId = id;
+    this.selectedServiceId = id;
     this.isDeleteConfirmationOpen = true;
   }
 
   confirmDelete() {
-    if (this.selectedEventId) {
+    if (this.selectedServiceId) {
       this.serviceManageService
-        .deleteEvent(this.selectedEventId)
+        .deleteEvent(this.selectedServiceId)
         .subscribe((result: any) => {
           if (result && result.statusCode == 200) {
             alert(result.message);
-            this.listOfEvent();
-            this.selectedEventId = null;
+            this.listOfService();
+            this.selectedServiceId = null;
           }
         });
     }
@@ -120,18 +120,18 @@ export class ServiceManageComponent {
     return this.listOfManageServiceData.find((event) => event.id === id);
   }
 
-  updateEvent(formData: any) {
+  updateService(formData: any) {
     this.closeModal();
-    if (this.selectedEventId) {
+    if (this.selectedServiceId) {
       this.serviceManageService
-        .updateEvent(this.selectedEventId, formData)
+        .updateService(this.selectedServiceId, formData)
         .subscribe((res: any) => {
           if (res && res.status === 'success') {
             alert(res.message);
-            this.listOfEvent();
+            this.listOfService();
             this.isEditMode = false;
-            this.GetNewEvent.reset();
-            this.selectedEventId = null;
+            this.serviceForm.reset();
+            this.selectedServiceId = null;
           }
         });
     }
@@ -141,8 +141,8 @@ export class ServiceManageComponent {
     const selectedEvent = this.getSelectedEvent(data.id);
     if (selectedEvent) {
       this.isEditMode = true;
-      this.selectedEventId = data.id;
-      this.GetNewEvent.patchValue(selectedEvent);
+      this.selectedServiceId = data.id;
+      this.serviceForm.patchValue(selectedEvent);
       this.openModal();
     }
   }
@@ -160,10 +160,10 @@ export class ServiceManageComponent {
         this.serviceManageService.deleteEvent(data.id).subscribe((res: any) => {
           if (res && res.status === 'success') {
             Swal.fire('Deleted!', 'Your event has been deleted.', 'success');
-            this.listOfEvent();
+            this.listOfService();
             this.isEditMode = false;
-            this.GetNewEvent.reset();
-            this.selectedEventId = null;
+            this.serviceForm.reset();
+            this.selectedServiceId = null;
           }
         });
       }
@@ -189,12 +189,12 @@ export class ServiceManageComponent {
   }
 
   submitForm() {
-    if (this.GetNewEvent.valid) {
-      const formData = this.GetNewEvent.value;
+    if (this.serviceForm.valid) {
+      const formData = this.serviceForm.value;
       if (this.isEditMode) {
-        this.updateEvent(formData);
+        this.updateService(formData);
       } else {
-        this.getEvent(formData);
+        this.getService(formData);
       }
     } else {
       console.log('Form is not valid. Please correct the errors.');

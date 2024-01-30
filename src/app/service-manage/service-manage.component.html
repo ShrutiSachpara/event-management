@@ -1,4 +1,3 @@
-<!-- manage-event.component.html -->
 <div class="page-wrapper">
   <div class="page-content">
     <div class="card">
@@ -12,7 +11,7 @@
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
-              {{ addEvent }}
+              {{ addService }}
             </button>
           </div>
         </div>
@@ -47,7 +46,7 @@
     aria-hidden="true"
   >
     <div class="modal-dialog">
-      <form [formGroup]="GetNewEvent" (ngSubmit)="submitForm()">
+      <form [formGroup]="serviceForm" (ngSubmit)="submitForm()">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
@@ -62,34 +61,34 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for="event_name" class="form-label">Event</label>
+              <label for="service_name" class="form-label">Service</label>
               <input
                 type="text"
                 id="event_manage_id"
                 class="form-control"
                 formControlName="event_manage_id"
-                placeholder="Enter your event name"
+                placeholder="Enter your event manage id"
               />
               <div
                 *ngIf="
-                  GetNewEvent?.get('event_manage_id')?.invalid &&
-                  GetNewEvent?.get('event_manage_id')?.touched
+                  serviceForm?.get('event_manage_id')?.invalid &&
+                  serviceForm?.get('event_manage_id')?.touched
                 "
                 class="text text-danger mt-1"
               >
                 <div
                   *ngIf="
-                    GetNewEvent?.get('event_manage_id')?.hasError('required')
+                    serviceForm?.get('event_manage_id')?.hasError('required')
                   "
                 >
-                  {{ eventManageId }}
+                  {{ serviceId }}
                 </div>
                 <div
                   *ngIf="
-                    GetNewEvent?.get('event_manage_id')?.hasError('pattern')
+                    serviceForm?.get('event_manage_id')?.hasError('pattern')
                   "
                 >
-                  {{ eventManageIdType }}
+                  {{ serviceIdType }}
                 </div>
               </div>
               <br />
@@ -103,25 +102,25 @@
               />
               <div
                 *ngIf="
-                  GetNewEvent?.get('service_name')?.invalid &&
-                  GetNewEvent?.get('service_name')?.touched
+                  serviceForm?.get('service_name')?.invalid &&
+                  serviceForm?.get('service_name')?.touched
                 "
                 class="text text-danger mt-1"
               >
                 <div
-                  *ngIf="GetNewEvent?.get('service_name')?.hasError('required')"
+                  *ngIf="serviceForm?.get('service_name')?.hasError('required')"
                 >
                   {{ serviceName }}
                 </div>
                 <div
                   *ngIf="
-                    GetNewEvent?.get('service_name')?.hasError('maxlength')
+                    serviceForm?.get('service_name')?.hasError('maxlength')
                   "
                 >
                   {{ serviceNameLength }}
                 </div>
                 <div
-                  *ngIf="GetNewEvent?.get('service_name')?.hasError('pattern')"
+                  *ngIf="serviceForm?.get('service_name')?.hasError('pattern')"
                 >
                   {{ serviceNameType }}
                 </div>
@@ -137,16 +136,16 @@
               />
               <div
                 *ngIf="
-                  GetNewEvent?.get('price')?.invalid &&
-                  GetNewEvent?.get('price')?.touched
+                  serviceForm?.get('price')?.invalid &&
+                  serviceForm?.get('price')?.touched
                 "
                 class="text text-danger mt-1"
               >
-                <div *ngIf="GetNewEvent?.get('price')?.hasError('required')">
+                <div *ngIf="serviceForm?.get('price')?.hasError('required')">
                   {{ priceReq }}
                 </div>
-                <div *ngIf="GetNewEvent?.get('price')?.hasError('pattern')">
-                  {{ eventManageIdType }}
+                <div *ngIf="serviceForm?.get('price')?.hasError('pattern')">
+                  {{ serviceIdType }}
                 </div>
               </div>
               <br />
@@ -172,7 +171,7 @@
               type="submit"
               data-bs-dismiss="modal"
               class="btn btn-primary"
-              [disabled]="GetNewEvent.invalid"
+              [disabled]="serviceForm.invalid"
             >
               {{ isEditMode ? "Update Event" : "Add Event" }}
             </button>
