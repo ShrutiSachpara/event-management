@@ -45,7 +45,6 @@ export class DashboardComponent {
     Promise.all([
       this.countOfBookingStatus(),
       this.listOfLatestBooking(),
-      this.loadData(),
       this.getGraphData(),
     ]);
   }
