@@ -21,17 +21,21 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoaderComponent } from './loader/loader.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { FormsModule } from '@angular/forms';
+import { ServiceManageComponent } from './service-manage/service-manage.component';
+import { BaseTableComponent } from './base/base-table/base-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BaseCardComponent } from './base/base-card/base-card.component';
+import { NgChartsModule } from 'ng2-charts';
+import { ManageEventComponent } from './manage-event/manage-event.component';
 import { ReportComponent } from './report/report.component';
-import { BaseTableComponent } from './base/base-table/base-table.component';
 import { MatSortModule } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,10 @@ import { MatTableModule } from '@angular/material/table';
     BaseInputComponent,
     BaseButtonComponent,
     LoaderComponent,
+    BaseTableComponent,
     ForgotPasswordComponent,
+    ServiceManageComponent,
+    BaseTableComponent,
     ChangePasswordComponent,
     LayoutComponent,
     HeaderComponent,
@@ -49,6 +56,9 @@ import { MatTableModule } from '@angular/material/table';
     DashboardComponent,
     ReportComponent,
     BaseTableComponent,
+    ManageEventComponent,
+    BaseTableComponent,
+    BaseCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,9 +73,12 @@ import { MatTableModule } from '@angular/material/table';
     BrowserAnimationsModule,
     MatSnackBarModule,
     FormsModule,
-    MatSortModule,
-    MatPaginatorModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    NgChartsModule,
+    MatSortModule,
     NgxUiLoaderModule.forRoot({}),
     StoreModule.forRoot({ auth: authReducer }),
     StoreDevtoolsModule.instrument({

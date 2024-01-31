@@ -1,0 +1,183 @@
+<div class="page-wrapper">
+  <div class="page-content">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex">
+          <h6 class="mb-0">Manage Service</h6>
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              {{ addService }}
+            </button>
+          </div>
+        </div>
+        <div>
+          <app-base-table
+            [data]="listOfManageServiceData"
+            [pageSize]="pageSize"
+            [currentPage]="currentPage"
+            [columns]="columns"
+            [sortedColumn]="sortedColumn"
+            [isAscending]="isAscending"
+            (pageChanged)="onPageChanged($event)"
+            (onEdit)="editEvent($event)"
+            (onDelete)="deleteEvent($event)"
+          >
+          </app-base-table>
+        </div>
+      </div>
+    </div>
+    <div class="overlay toggle-icon"></div>
+    <a href="javaScript:;" class="back-to-top"
+      ><i class="bx bxs-up-arrow-alt"></i
+    ></a>
+  </div>
+
+  <!-- Add/Edit Service Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <form [formGroup]="serviceForm" (ngSubmit)="submitForm()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              {{ isEditMode ? "Edit Event" : "Add Event" }}
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="service_name" class="form-label">Service</label>
+              <input
+                type="text"
+                id="event_manage_id"
+                class="form-control"
+                formControlName="event_manage_id"
+                placeholder="Enter your event manage id"
+              />
+              <div
+                *ngIf="
+                  serviceForm?.get('event_manage_id')?.invalid &&
+                  serviceForm?.get('event_manage_id')?.touched
+                "
+                class="text text-danger mt-1"
+              >
+                <div
+                  *ngIf="
+                    serviceForm?.get('event_manage_id')?.hasError('required')
+                  "
+                >
+                  {{ serviceId }}
+                </div>
+                <div
+                  *ngIf="
+                    serviceForm?.get('event_manage_id')?.hasError('pattern')
+                  "
+                >
+                  {{ serviceIdType }}
+                </div>
+              </div>
+              <br />
+
+              <input
+                type="text"
+                id="service_name"
+                class="form-control"
+                formControlName="service_name"
+                placeholder="Enter your service name"
+              />
+              <div
+                *ngIf="
+                  serviceForm?.get('service_name')?.invalid &&
+                  serviceForm?.get('service_name')?.touched
+                "
+                class="text text-danger mt-1"
+              >
+                <div
+                  *ngIf="serviceForm?.get('service_name')?.hasError('required')"
+                >
+                  {{ serviceName }}
+                </div>
+                <div
+                  *ngIf="
+                    serviceForm?.get('service_name')?.hasError('maxlength')
+                  "
+                >
+                  {{ serviceNameLength }}
+                </div>
+                <div
+                  *ngIf="serviceForm?.get('service_name')?.hasError('pattern')"
+                >
+                  {{ serviceNameType }}
+                </div>
+              </div>
+              <br />
+
+              <input
+                type="text"
+                id="price"
+                class="form-control"
+                formControlName="price"
+                placeholder="Enter your price"
+              />
+              <div
+                *ngIf="
+                  serviceForm?.get('price')?.invalid &&
+                  serviceForm?.get('price')?.touched
+                "
+                class="text text-danger mt-1"
+              >
+                <div *ngIf="serviceForm?.get('price')?.hasError('required')">
+                  {{ priceReq }}
+                </div>
+                <div *ngIf="serviceForm?.get('price')?.hasError('pattern')">
+                  {{ serviceIdType }}
+                </div>
+              </div>
+              <br />
+              <input
+                type="text"
+                id="service_description"
+                class="form-control"
+                formControlName="service_description"
+                placeholder="Enter your service description"
+              />
+              <br />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              {{ close }}
+            </button>
+            <button
+              type="submit"
+              data-bs-dismiss="modal"
+              class="btn btn-primary"
+              [disabled]="serviceForm.invalid"
+            >
+              {{ isEditMode ? "Update Event" : "Add Event" }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

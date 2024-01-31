@@ -14,7 +14,6 @@ import * as AuthActions from '../auth/auth.action';
 import { ToasterService } from '../services/toaster.service';
 import { HttpStatus } from 'src/helper/httpStatus';
 import { Router } from '@angular/router';
-import { Response } from '../data-type';
 import { ENUM } from 'src/helper/enum';
 import { Messages } from 'src/helper/message';
 
@@ -65,19 +64,17 @@ export class LoginComponent {
   onSubmit(data: Login) {
     this.loading = true;
     if (this.loginForm.valid) {
-      this.loading = true;
-
       this.loginService
         .login(data)
-        .subscribe((response: Response) => {
+        .subscribe((response: any) => {
           if (response.statusCode === HttpStatus.OK) {
             this.showMessage(response.message, 'dismiss');
             const token = response.data;
             this.store.dispatch(AuthActions.setToken({ token }));
             this.authService.setLoggedIn(true);
-            this.router.navigate(['/changePassword']);
+            this.router.navigate(['/dashboard']);
           } else {
-            this.showMessage(response.message, 'Error');
+            this.showMessage(response.message, 'dismiss');
           }
         })
         .add(() => {
