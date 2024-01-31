@@ -1,0 +1,54 @@
+<div class="page-wrapper">
+  <div class="page-content">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div>
+            <h6 class="mb-0">Booking Report</h6>
+          </div>
+        </div>
+
+        <!-- Booking table -->
+        <div>
+          <app-base-table
+            [data]="flattenedBookingData"
+            [pageSize]="pageSize"
+            [currentPage]="currentPage"
+            [columns]="bookingColumns"
+            [sortedColumn]="sortedColumn"
+            [isAscending]="isAscending"
+            (pageChanged)="onPageChanged($event)"
+          >
+          </app-base-table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div>
+            <h6 class="mb-0">Event Report</h6>
+          </div>
+        </div>
+
+        <!-- Event table -->
+        <div>
+          <app-base-table
+            [data]="flattenedBookingData"
+            [pageSize]="pageSize"
+            [currentPage]="currentPage"
+            [columns]="eventColumns"
+            [sortedColumn]="sortedColumn"
+            [isAscending]="isAscending"
+            (pageChanged)="onPageChanged($event)"
+          >
+          </app-base-table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay toggle-icon"></div>
+  <a class="back-to-top"><i class="bx bxs-up-arrow-alt"></i></a>
+</div>

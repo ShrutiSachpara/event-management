@@ -3,4 +3,6 @@ export const url = {
   verifyEmail: `/api/verifyEmail`,
   updatePassword: `/api/updatePassword`,
   changePassword: `/api/changePassword `,
+  bookingReport: `/api/report/bookingReport`,
+  eventReport: `/api/report/eventReport`,
 };
