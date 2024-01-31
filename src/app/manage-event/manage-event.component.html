@@ -1,0 +1,111 @@
+<div class="page-wrapper">
+  <div class="page-content">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <h6 class="mb-0">Manage Event</h6>
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              {{ addEvent }}
+            </button>
+          </div>
+        </div>
+        <div>
+          <app-base-table
+            [data]="listOfEventData"
+            [pageSize]="pageSize"
+            [currentPage]="currentPage"
+            [columns]="columns"
+            [sortedColumn]="sortedColumn"
+            [isAscending]="isAscending"
+            (pageChanged)="onPageChanged($event)"
+            (onEdit)="editEvent($event)"
+            (onDelete)="deleteEvent($event)"
+          >
+          </app-base-table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overlay toggle-icon"></div>
+  <a class="back-to-top"><i class="bx bxs-up-arrow-alt"></i></a>
+
+  <!-- Add/Edit Event Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <form [formGroup]="GetNewEvent" (ngSubmit)="submitForm()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              {{ isEditMode ? "Edit Event" : "Add Event" }}
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="event_name" class="form-label">Event</label>
+              <input
+                type="text"
+                id="event_name"
+                class="form-control"
+                formControlName="event_name"
+                placeholder="Enter your event"
+              />
+              <div
+                *ngIf="
+                  GetNewEvent?.get('event_name')?.invalid &&
+                  GetNewEvent?.get('event_name')?.touched
+                "
+                class="text text-danger mt-1"
+              >
+                <div
+                  *ngIf="GetNewEvent?.get('event_name')?.hasError('required')"
+                >
+                  {{ nameMessage }}
+                </div>
+                <div
+                  *ngIf="GetNewEvent?.get('event_name')?.hasError('maxlength')"
+                >
+                  {{ lengthMessage }}
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                {{ close }}
+              </button>
+              <button
+                type="submit"
+                data-bs-dismiss="modal"
+                class="btn btn-primary"
+                [disabled]="GetNewEvent.invalid"
+              >
+                {{ isEditMode ? "Update Event" : "Add Event" }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

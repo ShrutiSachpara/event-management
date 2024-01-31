@@ -1,5 +1,10 @@
 ::ng-deep .cdk-global-overlay-wrapper {
   position: absolute !important;
-  top: 0 !important;
+  top: 10% !important;
   right: 10px !important;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  border-radius: var(--mdc-snackbar-container-shape);
+  background-color: antiquewhite !important;
 }

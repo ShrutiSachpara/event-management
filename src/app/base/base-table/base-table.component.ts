@@ -25,9 +25,13 @@ export class BaseTableComponent implements OnChanges {
   @Input() columns: string[] = [];
   @Input() sortedColumn: string = '';
   @Input() isAscending: boolean = true;
+  @Input() columnActionTemplate: any;
   @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
+  @Output() onEdit = new EventEmitter<any>();
+  @Output() onDelete = new EventEmitter<any>();
+
   totalItemsCount: number = 0;
-  displayedData: any[] = [];
+  displayedData: object = {};
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   private searchSubject = new Subject<string>();
@@ -61,6 +65,14 @@ export class BaseTableComponent implements OnChanges {
     this.searchSubject.next(filterValue);
   }
 
+  editRecord(item: object) {
+    this.onEdit.emit(item);
+  }
+
+  deleteRecord(item: any) {
+    this.onDelete.emit(item);
+  }
+
   getColumnValue(item: any, column: string): any {
     if (item.hasOwnProperty(column)) {
       return item[column];
@@ -68,6 +80,29 @@ export class BaseTableComponent implements OnChanges {
       console.warn(`Property '${column}' does not exist in the data item.`);
       return '';
     }
+  }
+
+  onSort(sort: Sort) {
+    const column = sort.active;
+    const direction = sort.direction;
+
+    this.sortedColumn = column;
+    this.isAscending = direction === 'asc';
+
+    this.data.sort((a, b) => {
+      const firstValue = this.getColumnValue(a, column);
+      const secondValue = this.getColumnValue(b, column);
+
+      if (firstValue < secondValue) {
+        return this.isAscending ? -1 : 1;
+      } else if (firstValue > secondValue) {
+        return this.isAscending ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
+    this.dataSource.data = this.data;
+    this.updateDisplayedData();
   }
 
   onPageChanged(newPage: number) {

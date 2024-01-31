@@ -33,6 +33,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { BaseCardComponent } from './base/base-card/base-card.component';
 import { NgChartsModule } from 'ng2-charts';
 import { MatSortModule } from '@angular/material/sort';
+import { ManageEventComponent } from './manage-event/manage-event.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MatSortModule } from '@angular/material/sort';
     BaseInputComponent,
     BaseButtonComponent,
     LoaderComponent,
+    BaseTableComponent,
     ForgotPasswordComponent,
     ChangePasswordComponent,
     LayoutComponent,
@@ -48,6 +50,7 @@ import { MatSortModule } from '@angular/material/sort';
     FooterComponent,
     SidebarComponent,
     DashboardComponent,
+    ManageEventComponent,
     BaseTableComponent,
     BaseCardComponent,
   ],

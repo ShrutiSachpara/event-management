@@ -21,3 +21,8 @@ export interface ChangePassword {
   newPassword: string;
   confirmPassword: string;
 }
+
+export interface AddEvent {
+  target: HTMLInputElement;
+  event_name: string;
+}

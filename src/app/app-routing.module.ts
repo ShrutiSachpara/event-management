@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ManageEventComponent } from './manage-event/manage-event.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
@@ -11,11 +12,14 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'verifyEmail', component: ForgotPasswordComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
-  { path: 'changePassword', component: ChangePasswordComponent },
   {
-    path: 'dashboard',
+    path: '',
     component: LayoutComponent,
-    children: [{ path: '', component: DashboardComponent }],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'eventManage', component: ManageEventComponent },
+      { path: 'changePassword', component: ChangePasswordComponent },
+    ],
   },
 ];
 
