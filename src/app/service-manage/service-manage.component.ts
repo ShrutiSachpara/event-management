@@ -74,7 +74,7 @@ export class ServiceManageComponent {
 
   listOfService() {
     this.serviceManageService.getServiceData().subscribe((response: any) => {
-      if (response && response.status === 'success') {
+      if (response && response.status === ENUM.SUCCESS) {
         this.listOfManageServiceData = response.data;
         this.totalPages = Math.ceil(
           this.listOfManageServiceData.length / this.pageSize
@@ -126,7 +126,7 @@ export class ServiceManageComponent {
       this.serviceManageService
         .updateService(this.selectedServiceId, formData)
         .subscribe((res: any) => {
-          if (res && res.status === 'success') {
+          if (res && res.status === ENUM.SUCCESS) {
             alert(res.message);
             this.listOfService();
             this.isEditMode = false;
@@ -158,7 +158,7 @@ export class ServiceManageComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.serviceManageService.deleteEvent(data.id).subscribe((res: any) => {
-          if (res && res.status === 'success') {
+          if (res && res.status === ENUM.SUCCESS) {
             Swal.fire('Deleted!', 'Your event has been deleted.', 'success');
             this.listOfService();
             this.isEditMode = false;
@@ -197,7 +197,10 @@ export class ServiceManageComponent {
         this.getService(formData);
       }
     } else {
-      console.log('Form is not valid. Please correct the errors.');
+      this.showMessage(
+        'Form is not valid. Please correct the errors.',
+        'dismiss'
+      );
     }
   }
 }
