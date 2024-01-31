@@ -20,7 +20,13 @@
       {{ column | titlecase }}
       <span
         class="sortable-icon"
-        (click)="onSort({ column, direction: sortedColumn === column ? (isAscending ? 'desc' : 'asc') : 'asc' })"
+        (click)="
+          onSort({
+            active: column,
+            direction:
+              sortedColumn === column ? (isAscending ? 'desc' : 'asc') : 'asc'
+          })
+        "
       >
         <mat-icon aria-hidden="false" aria-label="Sort" class="arrow-icon">
           {{

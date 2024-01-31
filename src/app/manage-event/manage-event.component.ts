@@ -58,7 +58,7 @@ export class ManageEventComponent implements OnInit {
 
   listOfEvent() {
     this.manageEventService.getEventData().subscribe((response: any) => {
-      if (response && response.status === 'success') {
+      if (response && response.status === ENUM.SUCCESS) {
         this.listOfEventData = response.data;
         this.totalPages = Math.ceil(
           this.listOfEventData.length / this.pageSize
@@ -86,7 +86,7 @@ export class ManageEventComponent implements OnInit {
       this.manageEventService
         .updateEvent(this.selectedEventId, formData)
         .subscribe((res: any) => {
-          if (res && res.status === 'success') {
+          if (res && res.status === ENUM.SUCCESS) {
             alert(res.message);
             this.listOfEvent();
             this.isEditMode = false;

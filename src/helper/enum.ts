@@ -4,4 +4,5 @@ export enum ENUM {
   FORGOT_PASSWORD = 'Forgot Password',
   ADD_EVENT = 'Add Event',
   CLOSE = 'Close',
+  SUCCESS = 'success',
 }
