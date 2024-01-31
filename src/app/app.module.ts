@@ -21,15 +21,16 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoaderComponent } from './loader/loader.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { FormsModule } from '@angular/forms';
+import { ServiceManageComponent } from './service-manage/service-manage.component';
+import { BaseTableComponent } from './base/base-table/base-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { BaseTableComponent } from './base/base-table/base-table.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { BaseCardComponent } from './base/base-card/base-card.component';
 import { NgChartsModule } from 'ng2-charts';
 import { MatSortModule } from '@angular/material/sort';
@@ -44,6 +45,8 @@ import { ManageEventComponent } from './manage-event/manage-event.component';
     LoaderComponent,
     BaseTableComponent,
     ForgotPasswordComponent,
+    ServiceManageComponent,
+    BaseTableComponent,
     ChangePasswordComponent,
     LayoutComponent,
     HeaderComponent,

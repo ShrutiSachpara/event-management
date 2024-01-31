@@ -26,3 +26,10 @@ export interface AddEvent {
   target: HTMLInputElement;
   event_name: string;
 }
+
+export interface ServiceManage {
+  target: HTMLInputElement;
+  service_name: string;
+  price: number;
+  service_description: string;
+}

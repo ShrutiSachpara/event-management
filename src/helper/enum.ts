@@ -6,4 +6,5 @@ export enum ENUM {
   CLOSE = 'Close',
   SUCCESS = 'success',
   DISMISS = 'dismiss',
+  ADD_SERVICE = 'Add Service',
 }
