@@ -3,8 +3,8 @@ import { ToasterService } from '../services/toaster.service';
 import { ManageEventService } from '../services/api/manage-event.service';
 import { ENUM } from 'src/helper/enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
 import { Messages } from 'src/helper/message';
+import { SweetAlertService } from '../services/sweet-alert.service';
 
 @Component({
   selector: 'app-manage-event',
@@ -32,7 +32,8 @@ export class ManageEventComponent implements OnInit {
   constructor(
     private manageEventService: ManageEventService,
     private toaster: ToasterService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private sweetAlertService: SweetAlertService
   ) {
     this.GetNewEvent = this.fb.group({
       event_name: ['', [Validators.required, Validators.maxLength(50)]],
@@ -112,27 +113,26 @@ export class ManageEventComponent implements OnInit {
   }
 
   deleteEvent(data: any) {
-    Swal.fire({
-      title: 'Are you sure?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result: any) => {
-      if (result.isConfirmed) {
-        this.manageEventService.deleteEvent(data.id).subscribe((res: any) => {
-          debugger;
-          if (res && res.status === 'success') {
-            Swal.fire('Deleted!', 'Your event has been deleted.', 'success');
-            this.listOfEvent();
-            this.isEditMode = false;
-            this.GetNewEvent.reset();
-            this.selectedEventId = null;
-          }
-        });
-      }
-    });
+    this.sweetAlertService
+      .confirmDialog('Are you sure?', 'This action cannot be undone.')
+      .then((confirmed) => {
+        if (confirmed) {
+          this.manageEventService.deleteEvent(data.id).subscribe((res: any) => {
+            if (res && res.status === ENUM.SUCCESS) {
+              this.showMessage(
+                'Your event has been deleted successfully.',
+                ENUM.SUCCESS
+              );
+              this.listOfEvent();
+              this.isEditMode = false;
+              this.GetNewEvent.reset();
+              this.selectedEventId = null;
+            } else {
+              this.showMessage('Failed to delete the event.', ENUM.DISMISS);
+            }
+          });
+        }
+      });
   }
 
   openModal() {

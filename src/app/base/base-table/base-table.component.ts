@@ -31,7 +31,7 @@ export class BaseTableComponent implements OnChanges {
   @Output() onDelete = new EventEmitter<any>();
 
   totalItemsCount: number = 0;
-  displayedData: any[] = [];
+  displayedData: object = {};
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   private searchSubject = new Subject<string>();
@@ -64,9 +64,11 @@ export class BaseTableComponent implements OnChanges {
     const filterValue = (event.target as HTMLInputElement).value;
     this.searchSubject.next(filterValue);
   }
-  editRecord(item: any) {
+
+  editRecord(item: object) {
     this.onEdit.emit(item);
   }
+
   deleteRecord(item: any) {
     this.onDelete.emit(item);
   }

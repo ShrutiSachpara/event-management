@@ -5,4 +5,5 @@ export enum ENUM {
   ADD_EVENT = 'Add Event',
   CLOSE = 'Close',
   SUCCESS = 'success',
+  DISMISS = 'dismiss',
 }
