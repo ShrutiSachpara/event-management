@@ -5,15 +5,12 @@ import {
   EventEmitter,
   OnChanges,
   SimpleChanges,
-  ViewChildren,
-  QueryList,
   ViewChild,
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
-import { NgbdSortableHeader, SortEvent } from 'src/app/ngbdSortableHeader';
 import { Sort } from '@angular/material/sort';
 
 @Component({
@@ -34,7 +31,7 @@ export class BaseTableComponent implements OnChanges {
   @Output() onDelete = new EventEmitter<any>();
 
   totalItemsCount: number = 0;
-  displayedData: any[] = [];
+  displayedData: object = {};
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   private searchSubject = new Subject<string>();
@@ -67,9 +64,11 @@ export class BaseTableComponent implements OnChanges {
     const filterValue = (event.target as HTMLInputElement).value;
     this.searchSubject.next(filterValue);
   }
-  editRecord(item: any) {
+
+  editRecord(item: object) {
     this.onEdit.emit(item);
   }
+
   deleteRecord(item: any) {
     this.onDelete.emit(item);
   }
@@ -83,9 +82,10 @@ export class BaseTableComponent implements OnChanges {
     }
   }
 
-  @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
+  onSort(sort: Sort) {
+    const column = sort.active;
+    const direction = sort.direction;
 
-  onSort({ column, direction }: SortEvent) {
     this.sortedColumn = column;
     this.isAscending = direction === 'asc';
 
@@ -101,7 +101,6 @@ export class BaseTableComponent implements OnChanges {
         return 0;
       }
     });
-
     this.dataSource.data = this.data;
     this.updateDisplayedData();
   }

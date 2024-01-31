@@ -22,6 +22,11 @@ export interface ChangePassword {
   confirmPassword: string;
 }
 
+export interface AddEvent {
+  target: HTMLInputElement;
+  event_name: string;
+}
+
 export interface ServiceManage {
   target: HTMLInputElement;
   service_name: string;

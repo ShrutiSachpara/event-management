@@ -9,4 +9,6 @@ export enum Messages {
   SERVICE_NAME_LENGTH = 'Maximum length exceeded (50 characters).',
   SERVICE_NAME_TYPE = 'Please enter only letters (a-z, A-Z) and optional whitespace.',
   PRICE_REQ = 'Price is required.',
+  EVENT_NAME = 'Event name is required.',
+  EVENT_NAME_LENGTH = 'Maximum length exceeded (50 characters).',
 }
