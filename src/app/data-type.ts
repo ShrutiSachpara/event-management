@@ -33,3 +33,38 @@ export interface ServiceManage {
   price: number;
   service_description: string;
 }
+
+export interface AuthUser {
+  created_at: string;
+  email: string;
+  name: string;
+  phone_number: string;
+  profile_image: string;
+  status: string;
+  updated_at: string;
+}
+
+export interface EventManage {
+  created_at: string;
+  event_manage_id: number | null;
+  id: number;
+  is_deleted: boolean;
+  price: number;
+  service_description: string | null;
+  service_name: string;
+  updated_at: string;
+  user_id: number;
+}
+
+export interface ManageServiceData {
+  auth_user: AuthUser;
+  created_at: string;
+  event_manage: EventManage | null;
+  event_manage_id: number;
+  id: number;
+  price: number;
+  service_description: string | null;
+  service_name: string;
+  updated_at: string;
+  user_id: number;
+}
