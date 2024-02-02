@@ -3,8 +3,9 @@ import { ServiceManageService } from '../services/api/service-manage.service';
 import { ENUM } from 'src/helper/enum';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToasterService } from '../services/toaster.service';
-import Swal from 'sweetalert2';
 import { Messages } from 'src/helper/message';
+import { SweetAlertService } from '../services/sweet-alert.service';
+import { ManageServiceData } from '../data-type';
 
 @Component({
   selector: 'app-service-manage',
@@ -12,7 +13,7 @@ import { Messages } from 'src/helper/message';
   styleUrls: ['./service-manage.component.css'],
 })
 export class ServiceManageComponent {
-  listOfManageServiceData: any[] = [];
+  listOfManageServiceData: ManageServiceData[] = [];
   currentPage: number = 1;
   totalPages: number = 1;
   pageSize: number = 7;
@@ -32,7 +33,8 @@ export class ServiceManageComponent {
   constructor(
     private serviceManageService: ServiceManageService,
     private toaster: ToasterService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private sweetAlertService: SweetAlertService
   ) {
     this.serviceForm = this.fb.group({
       event_manage_id: [
@@ -148,26 +150,28 @@ export class ServiceManageComponent {
   }
 
   deleteEvent(data: any) {
-    Swal.fire({
-      title: 'Are you sure?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.serviceManageService.deleteEvent(data.id).subscribe((res: any) => {
-          if (res && res.status === ENUM.SUCCESS) {
-            Swal.fire('Deleted!', 'Your event has been deleted.', 'success');
-            this.listOfService();
-            this.isEditMode = false;
-            this.serviceForm.reset();
-            this.selectedServiceId = null;
-          }
-        });
-      }
-    });
+    this.sweetAlertService
+      .confirmDialog('Are you sure?', 'This action cannot be undone.')
+      .then((confirmed) => {
+        if (confirmed) {
+          this.serviceManageService
+            .deleteEvent(data.id)
+            .subscribe((res: any) => {
+              if (res && res.status === ENUM.SUCCESS) {
+                this.showMessage(
+                  'Your service has been deleted successfully.',
+                  ENUM.SUCCESS
+                );
+                this.listOfService();
+                this.isEditMode = false;
+                this.serviceForm.reset();
+                this.selectedServiceId = null;
+              } else {
+                this.showMessage('Failed to delete the service.', ENUM.DISMISS);
+              }
+            });
+        }
+      });
   }
 
   openModal() {
