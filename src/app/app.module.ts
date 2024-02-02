@@ -33,8 +33,9 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BaseCardComponent } from './base/base-card/base-card.component';
 import { NgChartsModule } from 'ng2-charts';
-import { MatSortModule } from '@angular/material/sort';
 import { ManageEventComponent } from './manage-event/manage-event.component';
+import { ReportComponent } from './report/report.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,8 @@ import { ManageEventComponent } from './manage-event/manage-event.component';
     FooterComponent,
     SidebarComponent,
     DashboardComponent,
+    ReportComponent,
+    BaseTableComponent,
     ManageEventComponent,
     BaseTableComponent,
     BaseCardComponent,

@@ -14,4 +14,6 @@ export const url = {
   listOfLatestBooking: `/api/dashboard/listOfLatestBooking`,
   graphOfUser: `/api/dashboard/graphOfUser`,
   changePassword: `/api/changePassword `,
+  bookingReport: `/api/report/bookingReport`,
+  eventReport: `/api/report/eventReport`,
 };

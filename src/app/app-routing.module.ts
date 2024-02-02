@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ServiceManageComponent } from './service-manage/service-manage.component';
 import { ManageEventComponent } from './manage-event/manage-event.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ReportComponent } from './report/report.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,6 +18,8 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
+      { path: '', component: DashboardComponent },
+      { path: 'eventReport', component: ReportComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'serviceManage', component: ServiceManageComponent },
       { path: 'eventManage', component: ManageEventComponent },
